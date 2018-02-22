@@ -1,6 +1,0 @@
-C:\Users\me\Source\Workspaces\Мое Хранилище1\Password2Go\Crypto\bin\Debug\crypto.dll
-C:\Users\me\Source\Workspaces\Мое Хранилище1\Password2Go\Crypto\bin\Debug\crypto.pdb
-C:\Users\me\Source\Workspaces\Мое Хранилище1\Password2Go\Crypto\obj\Debug\crypto.Net45.csprojResolveAssemblyReference.cache
-C:\Users\me\Source\Workspaces\Мое Хранилище1\Password2Go\Crypto\obj\Debug\crypto.Net45.csproj.CoreCompileInputs.cache
-C:\Users\me\Source\Workspaces\Мое Хранилище1\Password2Go\Crypto\obj\Debug\crypto.dll
-C:\Users\me\Source\Workspaces\Мое Хранилище1\Password2Go\Crypto\obj\Debug\crypto.pdb

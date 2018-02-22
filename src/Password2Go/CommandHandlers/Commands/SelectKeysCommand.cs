@@ -65,7 +65,7 @@ namespace Password2Go.CommandHandlers.Commands
 
         public void Execute()
         {
-            var keysConfigPath = Path.Combine(_localDirectory.ConfigDirectory, Program.KeysConfigFileName);
+            var keysConfigPath = Path.Combine(_localDirectory.ConfigDirectory, Program.KEYS_CONFIG_FILE_NAME);
 
             var keysConfig = Common.Helpers.SerializationFile.DeSerializeObject<Data.Configs.KeysConfig>(keysConfigPath);
 

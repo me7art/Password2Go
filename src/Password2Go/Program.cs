@@ -18,11 +18,12 @@ namespace Password2Go
 {
     static class Program
     {
-        const string ProgrammVersion = "0.1";
-        public const string KeysConfigFileName = "keys-config.xml";
-        const string LocalDirectoryConfigFileName = "local-directory.xml";
-        const string CategoryConfigFileName = "category-config.xml";
-        const string logfileName = "password2go.log";
+        public const string KEYS_CONFIG_FILE_NAME = "keys-config.xml";
+
+        const string PROGRAMM_VERSION = "0.1";
+        const string LOCAL_DIRECTORY_CONFIG_FILENAME = "local-directory.xml";
+        const string CATEGORY_CONFIG_FILENAME = "category-config.xml";
+        const string LOG_FILENAME = "password2go.log";
 
         // @@@ TODO: moce keyHolderService to DI
         public static KeyHolderService _keyHolderService;
@@ -51,7 +52,7 @@ namespace Password2Go
             {
                 DataDirectory = Path.Combine(root, "data"),
                 LogDirectory = Path.Combine(root, "log", DateTime.Now.ToShortDateString()),
-                LayoutDirectory = Path.Combine(root, "layout", ProgrammVersion),
+                LayoutDirectory = Path.Combine(root, "layout", PROGRAMM_VERSION),
                 TempDirectory = Path.Combine(root, "temp"),
                 ConfigDirectory = Path.Combine(root, "config"),
                 KeysDirectory = Path.Combine(root, "keys")
@@ -74,18 +75,18 @@ namespace Password2Go
                 return;
             }
 
-            IHelperLogger logger = new HelperLogger("main", Path.Combine(localDirectory.LogDirectory, logfileName));
+            IHelperLogger logger = new HelperLogger("main", Path.Combine(localDirectory.LogDirectory, LOG_FILENAME));
             logger.Log("Program starting...", eLOG.E_LOGMESSAGE);
 
             ICommonXML<Data.Configs.CategoryTreeConfig> categoryXmlAdapter = 
-                new CommonXMLAdapter<Data.Configs.CategoryTreeConfig>(Path.Combine(localDirectory.ConfigDirectory, CategoryConfigFileName));
+                new CommonXMLAdapter<Data.Configs.CategoryTreeConfig>(Path.Combine(localDirectory.ConfigDirectory, CATEGORY_CONFIG_FILENAME));
             DI.Register(categoryXmlAdapter);
 
             ICommonXML<LocalDirectory> localDirectoryXmlAdapter =
-                new CommonXMLAdapter<LocalDirectory>(Path.Combine(localDirectory.ConfigDirectory, LocalDirectoryConfigFileName));
+                new CommonXMLAdapter<LocalDirectory>(Path.Combine(localDirectory.ConfigDirectory, LOCAL_DIRECTORY_CONFIG_FILENAME));
             DI.Register(localDirectoryXmlAdapter);
 
-            if (CheckIsConfigExist(localDirectory, KeysConfigFileName) == false)
+            if (CheckIsConfigExist(localDirectory, KEYS_CONFIG_FILE_NAME) == false)
             {
                 logger.Log("BEGIN INITIALIZATION. Generating public/private keys, init database, create dummy config files", eLOG.E_LOGMESSAGE);
                 // First run - initialize config
@@ -107,7 +108,7 @@ namespace Password2Go
 
                 //SaveConfig(Path.Combine(localDirectory.ConfigDirectory, LocalDirectoryConfigFileName), localDirectory);
                 localDirectoryXmlAdapter.Write(localDirectory);
-                SaveConfig(Path.Combine(localDirectory.ConfigDirectory, KeysConfigFileName), keysConfig);
+                SaveConfig(Path.Combine(localDirectory.ConfigDirectory, KEYS_CONFIG_FILE_NAME), keysConfig);
                 categoryXmlAdapter.Write(categoryTreeConfig);
 
                 logger.Log("INITIALIZATION COMPLETE!", eLOG.E_LOGMESSAGE);
@@ -120,7 +121,7 @@ namespace Password2Go
                 var savedLocalDirectory      = localDirectoryXmlAdapter.Read();
                 localDirectory.DataDirectory = savedLocalDirectory.DataDirectory;
                 localDirectory.KeysDirectory = savedLocalDirectory.KeysDirectory;
-                keysConfig                   = LoadConfig<Data.Configs.KeysConfig>(Path.Combine(localDirectory.ConfigDirectory, KeysConfigFileName));
+                keysConfig                   = LoadConfig<Data.Configs.KeysConfig>(Path.Combine(localDirectory.ConfigDirectory, KEYS_CONFIG_FILE_NAME));
                 logger.Log("Configs loaded!", eLOG.E_LOGMESSAGE);
             }
 

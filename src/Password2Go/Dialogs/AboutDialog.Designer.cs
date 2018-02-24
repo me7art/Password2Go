@@ -62,9 +62,9 @@
             this.radLabel6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.radLabel6.Location = new System.Drawing.Point(202, 69);
             this.radLabel6.Name = "radLabel6";
-            this.radLabel6.Size = new System.Drawing.Size(110, 19);
+            this.radLabel6.Size = new System.Drawing.Size(117, 19);
             this.radLabel6.TabIndex = 14;
-            this.radLabel6.Text = "1.0.0 of 1.01.2018";
+            this.radLabel6.Text = "1.0.1 of 24.02.2018";
             this.radLabel6.ThemeName = "Office2013Dark";
             // 
             // radLabel2
@@ -174,9 +174,10 @@
             // 
             this.radLabel9.Location = new System.Drawing.Point(202, 139);
             this.radLabel9.Name = "radLabel9";
-            this.radLabel9.Size = new System.Drawing.Size(110, 18);
+            this.radLabel9.Size = new System.Drawing.Size(182, 18);
             this.radLabel9.TabIndex = 27;
-            this.radLabel9.Text = "<html><a href=\"http://password.2go.space/\">password.2go.space</a></html>";
+            this.radLabel9.Text = "<html><a href=\"https://github.com/me7art/Password2Go/\">github.com/me7art/Password" +
+    "2Go</a></html>";
             this.radLabel9.ThemeName = "Office2013Dark";
             // 
             // AboutDialog

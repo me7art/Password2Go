@@ -10,20 +10,37 @@ using Password2Go.Modules.PrivateCard;
 using Password2Go.Modules.PrivateCardList;
 using Password2Go.Modules.Preview;
 
+using Password2Go.Services.Images;
+
 namespace Password2Go.Services.Mappers.CardDataMapper.Site
 {
-
-
     public static class SiteCardDataTypeExtension
     {
+        static public LoadImageService ImageService;
+
         public static PrivateCardListViewModel MapToListItem(this SiteCardDataType data)
         {
+            StringBuilder cardName = new StringBuilder();
+            cardName.Append($"<html><b> {data.Title}</b>");
+            if (!string.IsNullOrWhiteSpace(data.Login)) cardName.Append($"\n<size=7> {data.Login}");
+            if (!string.IsNullOrWhiteSpace(data.Site)) cardName.Append($"\n<size=7> at <b>{data.Site}</b>");
+
+            System.Drawing.Image image = Password2Go.Properties.Resources.card_chrome_317753;
+            if (ImageService != null)
+            {
+                if (!string.IsNullOrWhiteSpace(data.Site) && ImageService.Exists(data.Site))
+                {
+                    image = ImageService.GetImage(data.Site).Image;
+                }
+            }
+
             return new SiteCardListViewModel()
             {
                 CardType = PrivateCardTypeEnum.Site,
                 ID = data.ID, //.ToString(),
-                CardName = $"<html><b> {data.Title}</b>\n<size=7> {data.Login}\n at <b>{data.Site}</b>",
-                CardImage = Password2Go.Properties.Resources.card_chrome_317753,
+                //CardName = $"<html><b> {data.Title}</b>\n<size=7> {data.Login}\n at <b>{data.Site}</b>",
+                CardName = cardName.ToString(),
+                CardImage = image,
                 Title = data.Title
             };
         }

@@ -13,6 +13,7 @@ using Common.Helpers;
 using Common.Interfaces;
 using Common.Repository;
 
+using Password2Go.Modules;
 
 namespace Password2Go
 {
@@ -20,12 +21,15 @@ namespace Password2Go
     {
         public const string KEYS_CONFIG_FILE_NAME = "keys-config.xml";
 
-        const string PROGRAMM_VERSION = "0.1";
+        const string PROGRAMM_VERSION = "1.0.1";
         const string LOCAL_DIRECTORY_CONFIG_FILENAME = "local-directory.xml";
         const string CATEGORY_CONFIG_FILENAME = "category-config.xml";
         const string LOG_FILENAME = "password2go.log";
 
-        // @@@ TODO: moce keyHolderService to DI
+        const string IMAGES_CONFIG = "images-config.xml";
+        const string IMAGES_DIRECTORY = "images";
+
+        // @@@ TODO: move keyHolderService to DI
         public static KeyHolderService _keyHolderService;
         public static PassphraseHolderService _passphraseHolderService;
 
@@ -128,6 +132,29 @@ namespace Password2Go
             _keyHolderService = new KeyHolderService().Init(keysConfig);
             _passphraseHolderService = new PassphraseHolderService();
 
+            Data.Configs.ImagesConfig imagesConfig = new Data.Configs.ImagesConfig();
+            try
+            {
+                // Try load image config from the same directory as "Exe" file
+                imagesConfig = LoadConfig<Data.Configs.ImagesConfig>(IMAGES_CONFIG);
+                if (imagesConfig == null)
+                {
+                    throw new Exception($"Error parsing {IMAGES_CONFIG}");
+                }
+                Services.Images.LoadImageService loadImageService = new Services.Images.LoadImageService();
+                loadImageService.LoadImagesConfig(imagesConfig, IMAGES_DIRECTORY);
+                Services.Mappers.CardDataMapper.Site.SiteCardDataTypeExtension.ImageService = loadImageService;
+            }
+            catch (FileNotFoundException ex)
+            {
+                logger?.Log($"Error loading {IMAGES_CONFIG}: {ex.Message}", eLOG.E_ERROR);
+            }
+            catch (Exception ex)
+            {
+                logger?.Log($"Error loading {IMAGES_CONFIG}: {ex.Message}", eLOG.E_ERROR);
+                ex.Display();
+            }
+
             //
             // Registering flux-stores in DI
             //
@@ -141,7 +168,14 @@ namespace Password2Go
             // Runing app
             //
             var mainController = new Controllers.MainController(localDirectory, _keyHolderService, _passphraseHolderService, DI, logger);
-            mainController.ApplicationRun();
+
+            try
+            {
+                mainController.ApplicationRun();
+            } catch (Exception ex)
+            {
+                ex.Display();
+            }
         }
 
         public static bool CheckIsConfigExist(LocalDirectory localDirectory, string configFileName)

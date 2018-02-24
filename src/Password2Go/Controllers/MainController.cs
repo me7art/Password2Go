@@ -27,6 +27,8 @@ using Password2Go.Services.Mappers.CategoryTree;
 using Password2Go.FluxStores;
 using Password2Go.Modules.PrivateCard;
 
+using Password2Go.Modules;
+
 namespace Password2Go.Controllers
 {
 
@@ -125,9 +127,10 @@ namespace Password2Go.Controllers
                 runtimeTable = LocalDatabase.InitRuntime(_db, out runtime);
                 if (runtime == null || runtimeTable == null) throw new Exception("Initialization error");
             }
-            catch
+            catch (Exception ex)
             {
-                _logger.Log("Error updating database", eLOG.E_CRITICAL_ERROR);
+                ex.Display();
+                _logger.Log("Error updating database, exiting...", eLOG.E_CRITICAL_ERROR);
                 return;
             }
 

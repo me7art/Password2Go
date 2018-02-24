@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ImagesConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Images>
+    <Image>
+      <Name>upwork.com</Name>
+      <Filename>if_79-upwork_1929178.png</Filename>
+    </Image>
+
+    <Image><Name>dropbox.com</Name><Filename>if_Dropbox_1298735.png</Filename></Image>
+    <Image><Name>linkedin.com</Name><Filename>if_LinkedIn_1298749.png</Filename></Image>
+    <Image><Name>mailchimp.com</Name><Filename>if_MailChimp_2744967.png</Filename></Image>
+    <Image><Name>www.paypal.com</Name><Filename>if_PayPal_1298715.png</Filename></Image>
+    <Image><Name>steampowered.com</Name><Filename>if_steam_287528.png</Filename></Image>
+    <Image><Name>online.sberbank.ru</Name><Filename>if_sberbank_48427.png</Filename></Image>
+    <Image><Name>www.teamviewer.com</Name><Filename>if_TeamViewer_2744934.png</Filename></Image>
+    <Image><Name>onedrive.live.com</Name><Filename>if_square_2256838.png</Filename></Image>
+    <Image><Name>box.com</Name><Filename>if_Box_2460213.png</Filename></Image>
+
+
+
+  </Images>
+</ImagesConfig>

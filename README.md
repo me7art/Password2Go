@@ -8,6 +8,8 @@ In general, I do not want to store passwords on the Internet. There was an optio
 
 Now the program is fully functional. The first time it starts it will prompt you to generate the keys to encrypt the passwords (and enter the password to protect the keys) and specify the path to the directory in which the database file will be created. I prefer to store the keys locally and the database file in the cloud.
 
+![alt Password2Go](https://raw.githubusercontent.com/me7art/Password2Go/master/Password2Go_2018-02-24_20-43-43.png)
+
 ### Some things TODO
 Password generator! Absolutely forgot about him...
 

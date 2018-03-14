@@ -20,6 +20,8 @@ namespace Password2Go.Modules.PrivateCard
         public CreditCardPublicViewModel PublicViewModel => _publicModel;
         public CreditCardPrivateViewModel PrivateViewModel => _privateModel;
 
+        public Func<string> GeneratePasswordAction { get; set; }
+
         public CreditCardUI()
         {
             InitializeComponent();

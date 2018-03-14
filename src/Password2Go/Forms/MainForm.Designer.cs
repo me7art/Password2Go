@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.radCommandBar1 = new Telerik.WinControls.UI.RadCommandBar();
             this.commandBarRowElement1 = new Telerik.WinControls.UI.CommandBarRowElement();
@@ -56,8 +57,12 @@
             this.rmiCategoriesOptions = new Telerik.WinControls.UI.RadMenuItem();
             this.privateCardListUI1 = new Password2Go.Modules.PrivateCardList.PrivateCardListUI();
             this.categoryTreeUI1 = new Password2Go.Modules.CategoryTree.CategoryTreeUI();
+            this.niPassword2Go = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiSelectPAssword = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.radCommandBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -288,11 +293,30 @@
             this.categoryTreeUI1.TabIndex = 9;
             this.categoryTreeUI1.ToggleMode = Telerik.WinControls.UI.ToggleMode.DoubleClick;
             // 
+            // niPassword2Go
+            // 
+            this.niPassword2Go.ContextMenuStrip = this.contextMenuStrip1;
+            this.niPassword2Go.Icon = ((System.Drawing.Icon)(resources.GetObject("niPassword2Go.Icon")));
+            this.niPassword2Go.Text = "Password.2Go";
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiSelectPAssword});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(159, 26);
+            // 
+            // tsmiSelectPAssword
+            // 
+            this.tsmiSelectPAssword.Name = "tsmiSelectPAssword";
+            this.tsmiSelectPAssword.Size = new System.Drawing.Size(158, 22);
+            this.tsmiSelectPAssword.Text = "Select Password";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(742, 597);
+            this.ClientSize = new System.Drawing.Size(742, 598);
             this.Controls.Add(this.panelPreview);
             this.Controls.Add(this.privateCardListUI1);
             this.Controls.Add(this.categoryTreeUI1);
@@ -309,6 +333,7 @@
             this.ThemeName = "Office2013Dark";
             ((System.ComponentModel.ISupportInitialize)(this.radCommandBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -343,5 +368,8 @@
         private Telerik.WinControls.UI.CommandBarDropDownButton cbddbMore;
         private Telerik.WinControls.UI.RadMenuItem rmiAddCreditCard;
         private Telerik.WinControls.UI.RadMenuItem rmiAddDatabase;
+        private System.Windows.Forms.NotifyIcon niPassword2Go;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSelectPAssword;
     }
 }

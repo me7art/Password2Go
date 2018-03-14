@@ -12,13 +12,28 @@ namespace Password2Go.Modules.PrivateCard
 {
     public partial class SiteCardUI : UserControl, ICardUI, IBindableUI<SiteCardPublicViewModel, SiteCardPrivateViewModel>
     {
+        //readonly Bitmap GENERATE_PASSWORD_IMAGE = Password2Go.Properties.Resources.if_dice_64067_16x16;
+
         public bool IsDecrypted => _privateModel != null;
         public UserControl ThisUserControl => this;
-
-        SiteCardPrivateViewModel _privateModel;
-        SiteCardPublicViewModel _publicModel;
         public SiteCardPublicViewModel PublicViewModel => _publicModel;
         public SiteCardPrivateViewModel PrivateViewModel => _privateModel;
+
+        private SiteCardPrivateViewModel _privateModel;
+        private SiteCardPublicViewModel _publicModel;
+
+        private GeneratePasswordHelper _passwordHelper;
+        public Func<string> GeneratePasswordAction
+        {
+            get
+            {
+                return _passwordHelper.GeneratePasswordAction;
+            }
+            set
+            {
+                _passwordHelper.GeneratePasswordAction = value;
+            }
+        }
 
         public SiteCardUI()
         {
@@ -26,6 +41,8 @@ namespace Password2Go.Modules.PrivateCard
 
             tbPasswordPriv.Text = LocalStringResource.ENCRYPTED_PASSWORD_STRING;
             tbCommentPriv.Text = LocalStringResource.ENCRYPTED_COMMENT_STRING;
+
+            _passwordHelper = new GeneratePasswordHelper(tbPasswordPriv);
         }
 
         bool _isReadOnly = false;
@@ -44,6 +61,7 @@ namespace Password2Go.Modules.PrivateCard
                 tbComment.IsReadOnly = _isReadOnly;
                 tbPasswordPriv.IsReadOnly = _isReadOnly;
                 tbCommentPriv.IsReadOnly = _isReadOnly;
+                _passwordHelper.SetVisibility(!_isReadOnly);
             }
         }
 
@@ -62,6 +80,21 @@ namespace Password2Go.Modules.PrivateCard
             tbPasswordPriv.AddBindingToText(privateModel, nameof(privateModel.Password));
             tbCommentPriv.AddBindingToText(privateModel, nameof(privateModel.CommentProtected));
         }
+
+        //private void rbGeneratePassword_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        string generatedPassword = GeneratePasswordAction();
+        //        if (!string.IsNullOrWhiteSpace(generatedPassword))
+        //        {
+        //            tbPasswordPriv.Text = generatedPassword;
+        //        }
+        //    } catch (Exception ex)
+        //    {
+        //        ex.Display();
+        //    }
+        //}
     }
 
 

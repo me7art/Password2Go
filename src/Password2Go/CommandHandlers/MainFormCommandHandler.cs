@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ComponentModel;
 
+using System.Drawing;
+
 using PetaPoco;
 
 using Password2Go.Modules.PrivateCard;
@@ -35,6 +37,9 @@ using Password2Go.FluxStores;
 using Password2Go.Modules.Preview;
 using Common.Repository;
 using Password2Go.Services.Mappers.CategoryTree;
+using Password2Go.Forms;
+using Password2Go.Modules.PasswordGenerator;
+
 
 namespace Password2Go.CommandHandlers
 {
@@ -306,6 +311,29 @@ namespace Password2Go.CommandHandlers
         {
             _currentPreviewUI = PrivateCardTypeEnum.None;
             _mainForm.ClearPreview();
+        }
+
+        private string GeneratePasswordAction()
+        {
+            var control = new PasswordGeneratorUI();
+            using (
+                var form = new OkCancelUIContainerForm(title: " Generate Password", control: control, formSize: new Size(290, 220))
+                {
+                    Icon = Password2Go.Properties.Resources.if_dice_64067,
+                    FormBorderStyle = FormBorderStyle.FixedDialog,
+                    MinimizeBox = false,
+                    MaximizeBox = false
+                }
+                )
+            {
+                var dlgResult = form.ShowDialog();
+                if (dlgResult == DialogResult.OK)
+                {
+                    return control.PasswordInput;
+                }
+
+                return null;
+            }
         }
     }
 }

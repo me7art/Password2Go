@@ -73,6 +73,16 @@ namespace Password2Go.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap if_arrow_refresh_35687 {
+            get {
+                object obj = ResourceManager.GetObject("if_arrow_refresh_35687", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap if_change_password_63985 {
             get {
                 object obj = ResourceManager.GetObject("if_change_password_63985", resourceCulture);
@@ -166,6 +176,26 @@ namespace Password2Go.Properties {
         internal static System.Drawing.Bitmap if_Delete_1493279 {
             get {
                 object obj = ResourceManager.GetObject("if_Delete_1493279", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon if_dice_64067 {
+            get {
+                object obj = ResourceManager.GetObject("if_dice_64067", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap if_dice_64067_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("if_dice_64067_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -31,7 +31,7 @@ namespace Password2Go.CommandHandlers
 			where TPublicModel : ICategorized, new()
 			where TPrivateModel : new()
         {
-            var siteCardUI = new TCardUI() { Dock = DockStyle.Fill };
+            var siteCardUI = new TCardUI() { Dock = DockStyle.Fill, GeneratePasswordAction = GeneratePasswordAction };
             var categoryVM = GetCategoryIdForCard();
 
             if (categoryVM == null)
@@ -41,6 +41,8 @@ namespace Password2Go.CommandHandlers
             {
                 TPublicModel siteCardPublicVM = new TPublicModel() { CategoryID = categoryVM.NodeID };
                 TPrivateModel siteCardPrivateVM = new TPrivateModel();
+
+                
 
                 siteCardUI.Bind(siteCardPublicVM);
                 siteCardUI.Bind(siteCardPrivateVM);

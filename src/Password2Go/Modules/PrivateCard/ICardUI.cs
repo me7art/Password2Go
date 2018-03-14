@@ -13,6 +13,8 @@ namespace Password2Go.Modules.PrivateCard
         bool IsDecrypted { get; }
         bool IsReadOnly { get; set; }
         UserControl ThisUserControl { get; }
+
+        Func<string> GeneratePasswordAction { get; set; }
     }
 
     public interface IBindableUI<TModelPublic, TModelPrivate>

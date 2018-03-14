@@ -21,6 +21,8 @@ namespace Password2Go.Modules.PrivateCard
         public NoteCardPublicViewModel PublicViewModel => _publicModel;
         public NoteCardPrivateViewModel PrivateViewModel => _privateModel;
 
+        public Func<string> GeneratePasswordAction { get; set; }
+
         public NoteCardUI()
         {
             InitializeComponent();

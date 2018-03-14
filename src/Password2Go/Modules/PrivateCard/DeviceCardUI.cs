@@ -20,11 +20,26 @@ namespace Password2Go.Modules.PrivateCard
         public DeviceCardPublicViewModel PublicViewModel => _publicModel;
         public DeviceCardPrivateViewModel PrivateViewModel => _privateModel;
 
+        private GeneratePasswordHelper _passwordHelper;
+        public Func<string> GeneratePasswordAction
+        {
+            get
+            {
+                return _passwordHelper.GeneratePasswordAction;
+            }
+            set
+            {
+                _passwordHelper.GeneratePasswordAction = value;
+            }
+        }
+
         public DeviceCardUI()
         {
             InitializeComponent();
             tbPasswordPriv.Text = LocalStringResource.ENCRYPTED_PASSWORD_STRING;
             tbCommentPriv.Text = LocalStringResource.ENCRYPTED_COMMENT_STRING;
+
+            _passwordHelper = new GeneratePasswordHelper(tbPasswordPriv);
         }
 
         bool _isReadOnly = false;
@@ -44,6 +59,7 @@ namespace Password2Go.Modules.PrivateCard
                 tbPasswordPriv.IsReadOnly = _isReadOnly;
                 tbCommentPriv.IsReadOnly = _isReadOnly;
                 tbPort.IsReadOnly = _isReadOnly;
+                _passwordHelper.SetVisibility(!_isReadOnly);
             }
         }
 

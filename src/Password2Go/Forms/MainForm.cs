@@ -83,6 +83,9 @@ namespace Password2Go.Forms
             rmiAddCreditCard.Click += RmiAddCreditCard_Click;
         }
 
+
+        public ContextMenuStrip NotifyContextMenu => contextMenuStrip1;
+
         private void RmiAddCreditCard_Click(object sender, EventArgs e)
         {
             try

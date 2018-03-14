@@ -11,8 +11,6 @@ Now the program is fully functional. The first time it starts it will prompt you
 ![alt Password2Go](https://raw.githubusercontent.com/me7art/Password2Go/master/Password2Go.png)
 
 ### Some things TODO
-Password generator! Absolutely forgot about him...
-
 Key management for multiple keys (add ability to encrypt passwords with different keys).
 
 Image and Document private card.

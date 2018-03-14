@@ -64,7 +64,7 @@
             this.radLabel6.Name = "radLabel6";
             this.radLabel6.Size = new System.Drawing.Size(117, 19);
             this.radLabel6.TabIndex = 14;
-            this.radLabel6.Text = "1.0.1 of 24.02.2018";
+            this.radLabel6.Text = "1.0.2 of 14.03.2018";
             this.radLabel6.ThemeName = "Office2013Dark";
             // 
             // radLabel2

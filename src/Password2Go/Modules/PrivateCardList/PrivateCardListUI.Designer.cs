@@ -39,7 +39,7 @@
             this.radListView1.AllowRemove = false;
             this.radListView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.radListView1.FullRowSelect = false;
-            this.radListView1.ItemSize = new System.Drawing.Size(160, 48);
+            this.radListView1.ItemSize = new System.Drawing.Size(160, 50);
             this.radListView1.Location = new System.Drawing.Point(0, 0);
             this.radListView1.Name = "radListView1";
             this.radListView1.Size = new System.Drawing.Size(613, 497);
@@ -48,7 +48,7 @@
             this.radListView1.ThemeName = "Office2013Dark";
             this.radListView1.ViewType = Telerik.WinControls.UI.ListViewType.IconsView;
             this.radListView1.SelectedItemChanged += new System.EventHandler(this.radListView1_SelectedItemChanged);
-            this.radListView1.ItemMouseClick += new Telerik.WinControls.UI.ListViewItemEventHandler(this.radListView1_ItemMouseClick);
+            //this.radListView1.ItemMouseClick += new Telerik.WinControls.UI.ListViewItemEventHandler(this.radListView1_ItemMouseClick);
             this.radListView1.ItemMouseDoubleClick += new Telerik.WinControls.UI.ListViewItemEventHandler(this.radListView1_ItemMouseDoubleClick);
             this.radListView1.ItemDataBound += new Telerik.WinControls.UI.ListViewItemEventHandler(this.radListView1_ItemDataBound);
             // 

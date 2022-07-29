@@ -18,7 +18,7 @@ namespace Password2Go.Services.Mappers.CardDataMapper.Device
     {
         public static PrivateCardListViewModel MapToListItem(this DeviceCardDataType data)
         {
-            return new DeviceCardListViewModel()
+            var deviceVM = new DeviceCardListViewModel()
             {
                 CardType = PrivateCardTypeEnum.Device,
                 ID = data.ID, //.ToString(),
@@ -26,6 +26,21 @@ namespace Password2Go.Services.Mappers.CardDataMapper.Device
                 CardImage = Password2Go.Properties.Resources.if_gnome_fs_server_21123,
                 Title = data.Title
             };
+
+            if (data.Port == "22")
+            {
+                deviceVM.IsSSHTerminalEnabled = true;
+            } else
+            {
+                deviceVM.IsSSHTerminalEnabled = false;
+            }
+
+            // TODO
+            //if (UserConfigProvider.CheckIsSSHEnabled(data.ID))
+            //{
+            //}
+
+            return deviceVM;
         }
 
         public static DeviceCardPublicViewModel MapToPublicItem(this DeviceCardDataType data /*, TreeViewModel treeViewModel*/)

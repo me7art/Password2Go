@@ -142,6 +142,7 @@ namespace Password2Go.Forms
             Action<TreeNodeViewModel> categoryChangeAction, 
             Action<PrivateCardListViewModel> openAction,    
             Action<PrivateCardListViewModel> selectAction,
+            Action<PrivateCardListViewModel> runSSHAction,
             Action emptyRecycleBinAction,
             Action categorisOptionsAction
             )
@@ -153,7 +154,7 @@ namespace Password2Go.Forms
             _addCreditcardAction = addCreditcardAction;
 
             categoryTreeUI1.Init(categoryChangeAction, nodeDoubleClicked: null);
-            privateCardListUI1.Init(openAction, selectAction);
+            privateCardListUI1.Init(openAction, selectAction, runSSHAction);
 
             _emptyRecycleBinAction = emptyRecycleBinAction;
             _categorisOptionsAction = categorisOptionsAction;

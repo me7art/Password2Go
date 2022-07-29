@@ -22,7 +22,8 @@ namespace Password2Go.Services.Mappers.CardDataMapper.DataBase
                 ID = data.ID, //.ToString(),
                 CardName = $"<html><b> {data.Title}</b>\n<size=7> {data.DatabaseName} at {data.Address}",
                 CardImage = Password2Go.Properties.Resources.if_database_35948_32x32, // .if_gnome_fs_server_21123,
-                Title = data.Title
+                Title = data.Title,
+                IsSSHTerminalEnabled = false
             };
         }
 

@@ -77,7 +77,7 @@ namespace Common.Repository.PrivateCards.Device
 
         public IEnumerable<DeviceCardDataType> SelectPublicByCategory(string[] categories)
         {
-            var query = Sql.Builder.Select(sID, sCategoryID, sTitle, sAddress, sLogin, sPublicComment, sCreatedDate, sModifiedDate, sImageKey).From(sTableName);
+            var query = Sql.Builder.Select(sID, sCategoryID, sTitle, sAddress, sPort, sLogin, sPublicComment, sCreatedDate, sModifiedDate, sImageKey).From(sTableName);
 
             query.Where($"{sCategoryID} in (@categories) AND {sIsMarkAsDeleted} = @deleted", new { categories = categories, deleted = false });
             

@@ -61,10 +61,13 @@ namespace Password2Go.Modules.PrivateCardList
 
         public string Title { get; set; }
 
+        public bool IsSSHTerminalEnabled { get; set; }
+
         public void UpdateView(PrivateCardListViewModel newView)
         {
             CardName = newView.CardName;
             CardImage = newView.CardImage;
+            IsSSHTerminalEnabled = newView.IsSSHTerminalEnabled;
             OnPropertyChanged(nameof(CardName));
             OnPropertyChanged(nameof(CardImage));
         }

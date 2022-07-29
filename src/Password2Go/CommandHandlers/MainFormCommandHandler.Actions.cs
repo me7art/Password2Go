@@ -15,6 +15,10 @@ using Password2Go.CommandHandlers.Commands;
 using Password2Go.CommandHandlers.Visitors.PrivateCardListItem;
 using Password2Go.CommandHandlers.Visitors.PreviewItem;
 
+using Password2Go.Services.Decrypt;
+using Common.Repository.PrivateCards;
+using Password2Go.Data;
+
 namespace Password2Go.CommandHandlers
 {
     public partial class MainFormCommandHandler
@@ -64,6 +68,19 @@ namespace Password2Go.CommandHandlers
                         newViewModel.Find(currentCategory)?.NodeID ?? Password2Go.Data.Configs.CategoryTreeConfig.ID_ALL);
                 }
             }
+        }
+
+        public void RunSSHAction(PrivateCardListViewModel item)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            var data = _cardsTableChain.DeviceCardsTable.Select(item.ID);
+            var secretData = DecryptService.DecryptData<DeviceEncryptedData, DeviceSecretData>(data, _keyHolderService, _passphraseHolderService);
+
+            System.Diagnostics.Process.Start("putty.exe", $"-pw {secretData.Password} {data.Login}@{data.Address}");
         }
 
         public void SelectCardAction(PrivateCardListViewModel item)

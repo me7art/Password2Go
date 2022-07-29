@@ -115,6 +115,7 @@ namespace Password2Go.Controllers
                 _commandHandler.CategoryChangedAction,
                 _commandHandler.OpenPrivateCardAction,
                 _commandHandler.SelectCardAction,
+                _commandHandler.RunSSHAction,
                 _commandHandler.EmpteRecycleBinAction,
                 _commandHandler.CategoriesOptionsAction
                 );

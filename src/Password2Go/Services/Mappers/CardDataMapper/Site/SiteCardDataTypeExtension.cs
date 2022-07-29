@@ -41,7 +41,8 @@ namespace Password2Go.Services.Mappers.CardDataMapper.Site
                 //CardName = $"<html><b> {data.Title}</b>\n<size=7> {data.Login}\n at <b>{data.Site}</b>",
                 CardName = cardName.ToString(),
                 CardImage = image,
-                Title = data.Title
+                Title = data.Title,
+                IsSSHTerminalEnabled = false
             };
         }
 

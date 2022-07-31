@@ -34,7 +34,8 @@ namespace Password2Go.Modules.PrivateCardList
             Size = new Size(16, 16),
             DisplayStyle = Telerik.WinControls.DisplayStyle.Image,
             ShowBorder = false,
-            ToolTipText = "Putty"
+            ToolTipText = "Putty",
+            Visibility = Telerik.WinControls.ElementVisibility.Hidden
         };
 
         //RadButtonElement winSCPButton = new RadButtonElement()
@@ -127,6 +128,11 @@ namespace Password2Go.Modules.PrivateCardList
             base.SynchronizeProperties();
 
             var o = this.Data.DataBoundItem as PrivateCardListViewModel;
+
+            if (o == null)
+            {
+                return;
+            }
 
             this.Text = string.Empty;
             this._imgElement.Image = o.CardImage;

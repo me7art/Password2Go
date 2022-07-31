@@ -9,6 +9,7 @@ using Password2Go.Data;
 using Password2Go.Modules.PrivateCard;
 using Password2Go.Modules.PrivateCardList;
 using Password2Go.Modules.Preview;
+using Password2Go.Modules.CategoryTree;
 
 namespace Password2Go.Services.Mappers.CardDataMapper.Device
 {
@@ -18,13 +19,16 @@ namespace Password2Go.Services.Mappers.CardDataMapper.Device
     {
         public static PrivateCardListViewModel MapToListItem(this DeviceCardDataType data)
         {
+            
+
             var deviceVM = new DeviceCardListViewModel()
             {
                 CardType = PrivateCardTypeEnum.Device,
                 ID = data.ID, //.ToString(),
-                CardName = $"<html><b> {data.Title}</b>\n<size=7> {data.Login} @ {data.Address} : {data.Port}",
+                CardName = $"<html><b> {data.Title}</b>\n<size=7> {data.Login}@{data.Address}:{data.Port}",
                 CardImage = Password2Go.Properties.Resources.if_gnome_fs_server_21123,
-                Title = data.Title
+                Title = data.Title,
+                CategoryID = data.CategoryID
             };
 
             if (data.Port == "22")

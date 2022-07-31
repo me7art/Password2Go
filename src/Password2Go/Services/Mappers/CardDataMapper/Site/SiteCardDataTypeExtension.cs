@@ -42,7 +42,8 @@ namespace Password2Go.Services.Mappers.CardDataMapper.Site
                 CardName = cardName.ToString(),
                 CardImage = image,
                 Title = data.Title,
-                IsSSHTerminalEnabled = false
+                IsSSHTerminalEnabled = false,
+                CategoryID = data.CategoryID
             };
         }
 

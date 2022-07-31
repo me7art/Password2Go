@@ -29,10 +29,15 @@ namespace Password2Go.CommandHandlers.Visitors.CardsTable
     public class SelectPublicByCategoryVisitor : ICardsTableVisitor
     {
         string[] _categoriesID;
-        BindingList<PrivateCardListViewModel> _result;
-        public BindingList<PrivateCardListViewModel> Result => _result;
+        //BindingList<PrivateCardListViewModel> _result;
+        //public BindingList<PrivateCardListViewModel> Result => _result;
 
-        public SelectPublicByCategoryVisitor(BindingList<PrivateCardListViewModel> result, string[] categoriesID)
+        List<PrivateCardListViewModel> _result;
+        public List<PrivateCardListViewModel> Result => _result;
+
+
+        //public SelectPublicByCategoryVisitor(BindingList<PrivateCardListViewModel> result, string[] categoriesID)
+        public SelectPublicByCategoryVisitor(List<PrivateCardListViewModel> result, string[] categoriesID)
         {
             _result = result;
             _categoriesID = categoriesID;

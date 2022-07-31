@@ -157,6 +157,7 @@ namespace Password2Go.CommandHandlers
 
         public void CategoryChangedAction(TreeNodeViewModel newCategoryID)
         {
+            
             //
             // Clear preview in any case
             //
@@ -170,30 +171,99 @@ namespace Password2Go.CommandHandlers
             }
 
             var categories = _currentCategory.GetAllChildNodeKeys().ToArray();
+            
+            //var a_blist = new BindingList<PrivateCardListViewModel>();
+            var a_blist = new List<PrivateCardListViewModel>();
+            LoadMainView(categories, a_blist);
+
+            // update categories
+            var categoriesLookup = new Dictionary<string, string>();
+            if (_currentCategory.IsVirtual == false) // for any except ID_ALL
+            {
+                categoriesLookup = _currentCategory.ToDictionary(includeRootElement: true);
+            }
+
+            //            _mainForm.ModelCategory.Nodes
+            if (_currentCategory.IsVirtual == true && _currentCategory.NodeID == "id_all") // TODO: move to string constant
+            {
+                categoriesLookup = _mainForm.ModelCategory.ToDictionary();
+            }
+
+            // Grouping
+            _blist.RaiseListChangedEvents = false;
             _blist.Clear();
+
             _blist = new BindingList<PrivateCardListViewModel>();
-            LoadMainView(categories, _blist);
-            _mainForm.Bind(_blist);
+
+            //foreach (var grp in categoriesLookup)
+            //{
+            //    var items = a_blist.Where(x => x.CategoryID == grp.Key).ToList();
+            //    items.ForEach(
+            //        x => { _blist.Add(x); a_blist.Remove(x); }
+            //    );
+            //}
+            //// Uncategorized
+            //foreach (var itm in a_blist)
+            //{
+            //    _blist.Add(itm);
+            //}
+
+            Dictionary<string, List<PrivateCardListViewModel>> cache = new Dictionary<string, List<PrivateCardListViewModel>>();
+            foreach (var itm in a_blist)
+            {
+                if (cache.ContainsKey(itm.CategoryID) == false)
+                {
+                    cache[itm.CategoryID] = new List<PrivateCardListViewModel>();
+                }
+
+                cache[itm.CategoryID].Add(itm);
+            }
+
+            foreach (var grp in categoriesLookup)
+            {
+                if (cache.ContainsKey(grp.Key) == false)
+                {
+                    continue;
+                }
+
+                var items = cache[grp.Key].ToList();
+                items.ForEach(
+                    x => { _blist.Add(x); a_blist.Remove(x); } // TODO: remober from a_blist
+                );
+            }
+
+            // Uncategorized
+            foreach (var itm in a_blist)
+            {
+                _blist.Add(itm);
+            }
+            // //
+
+            _mainForm.Bind(_blist, categoriesLookup);
 
             //if (_currentCategory.NodeID == Password2Go.Data.Configs.CategoryTreeConfig.ID_RECYCLEBIN)
             //{
 
             //}
+
         }
 
-        private void LoadMainView(string[] categoriesID, BindingList<PrivateCardListViewModel> blist)
+
+        private void LoadMainView(string[] categoriesID, List<PrivateCardListViewModel> blist)
         {
+
+
             if (_currentCategory.NodeID == Password2Go.Data.Configs.CategoryTreeConfig.ID_ALL)
             {
-                _cardsTableChain.SelectPublic(blist, deleted: false);
+                _cardsTableChain.SelectPublic(blist,  deleted: false);
             }
             else if (_currentCategory.NodeID == Password2Go.Data.Configs.CategoryTreeConfig.ID_RECYCLEBIN)
             {
-                _cardsTableChain.SelectPublic(blist, deleted: true);
+                _cardsTableChain.SelectPublic(blist,  deleted: true);
             }
             else
             {
-                _cardsTableChain.SelectPublicByCategory(blist, categories: categoriesID);
+                _cardsTableChain.SelectPublicByCategory(blist,  categories: categoriesID);
             }
         }
 

@@ -212,6 +212,23 @@ namespace Password2Go.Modules.CategoryTree
             return Find(key, Nodes);
         }
 
+        public Dictionary<string, string> ToDictionary()
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+
+            // GetAllChildNodeKeysValues
+            foreach (var nodes in Nodes)
+            {
+                var elements = nodes.GetAllChildNodeKeysValues(includeRootElement: true);
+                foreach (var element in elements)
+                {
+                    result[element.key] = element.value;
+                }
+            }
+
+            return result;
+        }
+
         TreeNodeViewModel Find(string key, List<TreeNodeViewModel> nodes)
         {
             foreach(var node in nodes)
@@ -276,6 +293,40 @@ namespace Password2Go.Modules.CategoryTree
                 }
             }
         }
+
+        
+        public IEnumerable<(string key, string value)> GetAllChildNodeKeysValues(bool includeRootElement)
+        {
+            if (includeRootElement && IsVirtual == false)
+            {
+                yield return (NodeID, NodeName);
+            }
+
+            foreach(var node in ChildNodes)
+            {
+                foreach( var v in node.GetAllChildNodeKeysValues(true))
+                {
+                    if (IsVirtual == true)
+                    {
+                        continue;
+                    }
+
+                    yield return (v.key, $"{NodeName} - {v.value}");
+                }
+            }
+        }
+
+        public Dictionary<string, string> ToDictionary(bool includeRootElement)
+        {
+            var result = new Dictionary<string, string>();
+            var values = GetAllChildNodeKeysValues(includeRootElement);
+            foreach(var v in values)
+            {
+                result.Add(v.key, v.value);
+            }
+            return result;
+        }
+
 
         public TreeNodeViewModel(string nodeID, string nodeName, bool isVirtual = false)
         {

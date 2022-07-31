@@ -16,6 +16,8 @@ using Common.Repository.PrivateCards.CreditCard;
 using Password2Go.Modules.PrivateCardList;
 using Password2Go.CommandHandlers.Visitors.CardsTable;
 
+//using Password2Go.Modules.CategoryTree;
+
 namespace Password2Go.CommandHandlers
 {
     public class CardsTableChain
@@ -49,13 +51,15 @@ namespace Password2Go.CommandHandlers
             _baseTables.ForEach(x => x.DeleteMarked());
         }
 
-        public void SelectPublic(BindingList<PrivateCardListViewModel> result, bool deleted = false)
+        //public void SelectPublic(BindingList<PrivateCardListViewModel> result, bool deleted = false)
+        public void SelectPublic(List<PrivateCardListViewModel> result, bool deleted = false)
         {
             SelectPublicCardsTableVisitor selectPublicCardsTableVisitor = new SelectPublicCardsTableVisitor(result, deleted);
             _baseTables.ForEach(x => x.Accept(selectPublicCardsTableVisitor));
         }
 
-        public void SelectPublicByCategory(BindingList<PrivateCardListViewModel> result, string[] categories)
+        //public void SelectPublicByCategory(BindingList<PrivateCardListViewModel> result, string[] categories)
+        public void SelectPublicByCategory(List<PrivateCardListViewModel> result, string[] categories)
         {
             SelectPublicByCategoryVisitor selectPublicByCategoryVisitor = new SelectPublicByCategoryVisitor(result, categories);
             _baseTables.ForEach(x => x.Accept(selectPublicByCategoryVisitor));

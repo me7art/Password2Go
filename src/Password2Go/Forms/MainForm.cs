@@ -160,10 +160,12 @@ namespace Password2Go.Forms
             _categorisOptionsAction = categorisOptionsAction;
         }
 
-        public void Bind(BindingList<PrivateCardListViewModel> bindingList)
+        public void Bind(BindingList<PrivateCardListViewModel> bindingList, Dictionary<string, string> categoryLookup)
         {
-            privateCardListUI1.Bind(bindingList);
+            privateCardListUI1.Bind(bindingList, categoryLookup);
         }
+
+
 
         private void listUI1_Load(object sender, EventArgs e)
         {

@@ -23,7 +23,8 @@ namespace Password2Go.Services.Mappers.CardDataMapper.CreditCard
                 CardName = $"<html><b> {data.Title}</b>\n<size=7>  {data.Bank}\n<size=7>  **** **** **** {data.Last4Digit}",
                 CardImage = Password2Go.Properties.Resources.if_credit_card_49367_32x32, // .if_database_35948_32x32, // .if_gnome_fs_server_21123,
                 Title = data.Title,
-                IsSSHTerminalEnabled = false
+                IsSSHTerminalEnabled = false,
+                CategoryID = data.CategoryID
             };
         }
 

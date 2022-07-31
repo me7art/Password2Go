@@ -40,7 +40,6 @@ using Password2Go.Services.Mappers.CategoryTree;
 using Password2Go.Forms;
 using Password2Go.Modules.PasswordGenerator;
 
-
 namespace Password2Go.CommandHandlers
 {
     public partial class MainFormCommandHandler : 

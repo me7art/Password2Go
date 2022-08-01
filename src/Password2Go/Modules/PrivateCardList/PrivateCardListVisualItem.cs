@@ -142,7 +142,7 @@ namespace Password2Go.Modules.PrivateCardList
             {
                 if (o.IsSSHTerminalEnabled == true)
                 {
-                    _imgElement.ShouldHandleMouseInput = true;
+                    //_imgElement.ShouldHandleMouseInput = true;
                     _terminalSSHButton.Visibility = Telerik.WinControls.ElementVisibility.Visible;
                     //winSCPButton.Visibility = Telerik.WinControls.ElementVisibility.Visible;
                 }
@@ -150,7 +150,7 @@ namespace Password2Go.Modules.PrivateCardList
             }
             else
             {
-                _imgElement.ShouldHandleMouseInput = false;
+                //_imgElement.ShouldHandleMouseInput = false;
                 _terminalSSHButton.Visibility = Telerik.WinControls.ElementVisibility.Hidden;
                 //winSCPButton.Visibility = Telerik.WinControls.ElementVisibility.Hidden;
             }

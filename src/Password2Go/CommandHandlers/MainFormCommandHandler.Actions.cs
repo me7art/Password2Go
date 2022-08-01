@@ -265,7 +265,8 @@ namespace Password2Go.CommandHandlers
                     _passphraseHolderService,
                     _keyHolderService,
                     _categoryTreeXml,
-                    _mainForm.ModelCategory);
+                    _mainForm.ModelCategory,
+                    GeneratePasswordAction);
 
             item.Accept(openPrivateCardActionVisitor);
         }

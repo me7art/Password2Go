@@ -271,7 +271,11 @@ namespace Password2Go.Forms
 
         private void rmiAbout_Click(object sender, EventArgs e)
         {
-            using (var aboutDialog = new Dialogs.AboutDialog())
+            using (var aboutDialog = 
+                new Dialogs.AboutDialog(
+                    version: $"{Program.PROGRAMM_VERSION} of {Program.PROGRAMM_DATE}", 
+                    copyright: $"<html><strong><span style=\"font-size: 8pt; color: #808080\">Copyright (c) 2018-{DateTime.Now.Year} Maksim Serykh</span></strong></html>"
+                    ))
             {
                 aboutDialog.ShowDialog();
             }

@@ -45,6 +45,12 @@ namespace Password2Go.CommandHandlers
             item.Accept(decryptPreviewActionVisitor);
         }
 
+
+        public void FilterAction(string text)
+        {
+            _mainForm.SetFilter(text);
+        }
+
         public void CategoriesOptionsAction()
         {
             using (var dialog = new Password2Go.Forms.CategoriesConfigForm())

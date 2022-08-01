@@ -11,8 +11,6 @@ using Telerik.WinControls.UI;
 
 using Telerik.WinControls.Layouts;
 using Telerik.WinControls.Data;
-using Password2Go.Modules.CategoryTree;
-
 
 namespace Password2Go.Modules.PrivateCardList
 {
@@ -24,7 +22,7 @@ namespace Password2Go.Modules.PrivateCardList
         Action<PrivateCardListViewModel> _selectAction;
         Action<PrivateCardListViewModel> _runPuttyAction;
 
-        Dictionary<string, string> _categoryLookup;
+        Dictionary<string, string> _categoriesLookup;
 
         public PrivateCardListViewModel CurrentItem => radListView1.CurrentItem?.DataBoundItem as PrivateCardListViewModel;
 
@@ -33,34 +31,35 @@ namespace Password2Go.Modules.PrivateCardList
             InitializeComponent();
 
             radListView1.VisualItemCreating += RadListView1_VisualItemCreating;
+        }
 
-            // Ordinar groups
-            //radListView1.ShowGroups = true;
-            //radListView1.EnableGrouping = true;
-            //GroupDescriptor groupByValue = new GroupDescriptor("CategoryID");
-            //radListView1.GroupDescriptors.Add(groupByValue);
+        public void SetFilter(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                radListView1.FilterDescriptors.Clear();
+                radListView1.EnableFiltering = false;
 
-            // Custom groups - slow :(
+                radListView1.Groups.Clear();
+                UpdateGroups();
 
-            //radListView1.EnableFiltering = true;
-            //FilterDescriptor valueFilter = new FilterDescriptor("CardName", FilterOperator.Contains, "raspb");
-            //radListView1.FilterDescriptors.Add(valueFilter);
+                return;
+            }
 
+            radListView1.EnableFiltering = true;
+            var typeFilter = new FilterDescriptor("CardName", FilterOperator.Contains, text);
+            radListView1.FilterDescriptors.Clear();
+            radListView1.FilterDescriptors.Add(typeFilter);
+            //radListView1.ListViewElement.DataView.Refresh();
+
+            radListView1.Groups.Clear();
+            UpdateGroups();
         }
 
         private void RadListView1_VisualItemCreating(object sender, ListViewVisualItemCreatingEventArgs e)
         {
             if (e.DataItem is Telerik.WinControls.UI.ListViewDataItemGroup)
             {
-                //var categoryItem = e.DataItem as Telerik.WinControls.UI.ListViewDataItemGroup;
-                //if (_categoryLookup.ContainsKey(categoryItem.Text))
-                //{
-                //    categoryItem.Text = _categoryLookup[categoryItem.Text];
-                //} else
-                //{
-                //    categoryItem.Text = $"";
-                //}
-
                 return;
             }
 
@@ -69,9 +68,7 @@ namespace Password2Go.Modules.PrivateCardList
 
         public void Bind(BindingList<PrivateCardListViewModel> bindingList, Dictionary<string, string> categoriesLookup)
         {
-            _categoryLookup = categoriesLookup;
-
-            //DateTime n = DateTime.Now;
+            _categoriesLookup = categoriesLookup;
 
             _bindingList = bindingList;
             radListView1.DataSource = bindingList;
@@ -83,6 +80,12 @@ namespace Password2Go.Modules.PrivateCardList
             radListView1.ShowGroups = true;
             radListView1.Groups.Clear();
 
+            UpdateGroups();
+            // //
+        }
+
+        private void UpdateGroups()
+        {
             Dictionary<string, ListViewDataItemGroup> groups = new Dictionary<string, ListViewDataItemGroup>();
             foreach (var item in radListView1.Items)
             {
@@ -94,7 +97,7 @@ namespace Password2Go.Modules.PrivateCardList
 
                 if (groups.ContainsKey(o.CategoryID) == false)
                 {
-                    var groupName = categoriesLookup.TryGetValue(o.CategoryID, out string categoryName) ? categoryName : o.CategoryID;
+                    var groupName = _categoriesLookup.TryGetValue(o.CategoryID, out string categoryName) ? categoryName : o.CategoryID;
                     groups.Add(o.CategoryID, new ListViewDataItemGroup(groupName));
                 }
 
@@ -105,10 +108,6 @@ namespace Password2Go.Modules.PrivateCardList
             {
                 radListView1.Groups.Add(group.Value);
             }
-            // //
-
-            // var b = DateTime.Now - n;
-            // MessageBox.Show(b.TotalSeconds.ToString());
         }
 
         public void Init(
@@ -123,7 +122,6 @@ namespace Password2Go.Modules.PrivateCardList
 
         private void radListView1_ItemDataBound(object sender, Telerik.WinControls.UI.ListViewItemEventArgs e)
         {
-
             //if (radListView1.ViewType == Telerik.WinControls.UI.ListViewType.ListView)
             //{
             //    e.Item.Image = ((PrivateCardListViewModel)e.Item.DataBoundItem).CardImage;
@@ -132,7 +130,6 @@ namespace Password2Go.Modules.PrivateCardList
             //    //e.Item.TextAlignment = ContentAlignment.MiddleCenter;
 
             //}
-
         }
 
         private void radListView1_ItemMouseDoubleClick(object sender, Telerik.WinControls.UI.ListViewItemEventArgs e)

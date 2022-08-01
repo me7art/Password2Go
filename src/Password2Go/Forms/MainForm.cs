@@ -180,9 +180,9 @@ namespace Password2Go.Forms
             _filterAction = filterAction;
         }
 
-        public void Bind(BindingList<PrivateCardListViewModel> bindingList, Dictionary<string, string> categoryLookup)
+        public void Bind(BindingList<PrivateCardListViewModel> bindingList, Dictionary<string, string> categoryLookup, bool enableGroups)
         {
-            privateCardListUI1.Bind(bindingList, categoryLookup);
+            privateCardListUI1.Bind(bindingList, categoryLookup, enableGroups);
         }
 
 

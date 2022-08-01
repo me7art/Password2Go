@@ -190,7 +190,7 @@ namespace Password2Go.CommandHandlers
             }
 
             //            _mainForm.ModelCategory.Nodes
-            if (_currentCategory.IsVirtual == true && _currentCategory.NodeID == "id_all") // TODO: move to string constant
+            if (_currentCategory.IsVirtual == true && _currentCategory.NodeID == Password2Go.Data.Configs.CategoryTreeConfig.ID_ALL);
             {
                 categoriesLookup = _mainForm.ModelCategory.ToDictionary();
             }
@@ -200,19 +200,6 @@ namespace Password2Go.CommandHandlers
             _blist.Clear();
 
             _blist = new BindingList<PrivateCardListViewModel>();
-
-            //foreach (var grp in categoriesLookup)
-            //{
-            //    var items = a_blist.Where(x => x.CategoryID == grp.Key).ToList();
-            //    items.ForEach(
-            //        x => { _blist.Add(x); a_blist.Remove(x); }
-            //    );
-            //}
-            //// Uncategorized
-            //foreach (var itm in a_blist)
-            //{
-            //    _blist.Add(itm);
-            //}
 
             Dictionary<string, List<PrivateCardListViewModel>> cache = new Dictionary<string, List<PrivateCardListViewModel>>();
             foreach (var itm in a_blist)
@@ -245,12 +232,9 @@ namespace Password2Go.CommandHandlers
             }
             // //
 
-            _mainForm.Bind(_blist, categoriesLookup);
+            bool enableGroups = _currentCategory.NodeID != Password2Go.Data.Configs.CategoryTreeConfig.ID_RECYCLEBIN;
 
-            //if (_currentCategory.NodeID == Password2Go.Data.Configs.CategoryTreeConfig.ID_RECYCLEBIN)
-            //{
-
-            //}
+            _mainForm.Bind(_blist, categoriesLookup, enableGroups);
 
         }
 

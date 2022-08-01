@@ -66,7 +66,7 @@ namespace Password2Go.Modules.PrivateCardList
             e.VisualItem = new PrivateCardListVisualItem(_runPuttyAction);
         }
 
-        public void Bind(BindingList<PrivateCardListViewModel> bindingList, Dictionary<string, string> categoriesLookup)
+        public void Bind(BindingList<PrivateCardListViewModel> bindingList, Dictionary<string, string> categoriesLookup, bool enableGroups)
         {
             _categoriesLookup = categoriesLookup;
 
@@ -76,11 +76,17 @@ namespace Password2Go.Modules.PrivateCardList
             radListView1.ValueMember = nameof(PrivateCardListViewModel.ID);         // "ID";
 
             // Grouping
-            radListView1.EnableCustomGrouping = true;
-            radListView1.ShowGroups = true;
-            radListView1.Groups.Clear();
+            if (enableGroups == true)
+            {
+                radListView1.EnableCustomGrouping = true;
+                radListView1.ShowGroups = true;
+                radListView1.Groups.Clear();
 
-            UpdateGroups();
+                UpdateGroups();
+            } else
+            {
+                radListView1.ShowGroups = false;
+            }
             // //
         }
 

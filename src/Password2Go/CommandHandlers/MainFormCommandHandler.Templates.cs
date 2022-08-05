@@ -16,6 +16,9 @@ using Common.Repository.PrivateCards;
 using Password2Go.Modules.PrivateCardList;
 using Password2Go.FluxStores;
 
+
+using Password2Go.Modules.CategoryTree;
+
 namespace Password2Go.CommandHandlers
 {
     public partial class MainFormCommandHandler
@@ -71,6 +74,7 @@ namespace Password2Go.CommandHandlers
 			)
 			where TCardDataType : IBaseCardData
         {
+
             if (a.UpdatedAction == UpdatedActionEnum.Update)
             {
                 foreach (var item in a.Items)

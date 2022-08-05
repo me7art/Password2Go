@@ -23,7 +23,8 @@ namespace Password2Go.Services.Mappers.CardDataMapper.Note
                 CardName = $"<html><b>{data.Title}</b>\n<size=7>note",
                 CardImage = Password2Go.Properties.Resources.if_page_white_text_36305_32x32, // if_white_note_49638,
                 Title = data.Title,
-                IsSSHTerminalEnabled = false
+                IsSSHTerminalEnabled = false,
+                CategoryID = data.CategoryID
             };
         }
 

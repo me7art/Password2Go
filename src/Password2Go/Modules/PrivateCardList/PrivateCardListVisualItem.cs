@@ -34,7 +34,8 @@ namespace Password2Go.Modules.PrivateCardList
             Size = new Size(16, 16),
             DisplayStyle = Telerik.WinControls.DisplayStyle.Image,
             ShowBorder = false,
-            ToolTipText = "Putty"
+            ToolTipText = "Putty",
+            Visibility = Telerik.WinControls.ElementVisibility.Hidden
         };
 
         //RadButtonElement winSCPButton = new RadButtonElement()
@@ -128,6 +129,11 @@ namespace Password2Go.Modules.PrivateCardList
 
             var o = this.Data.DataBoundItem as PrivateCardListViewModel;
 
+            if (o == null)
+            {
+                return;
+            }
+
             this.Text = string.Empty;
             this._imgElement.Image = o.CardImage;
             this._titleElement.Text = o.CardName;
@@ -136,7 +142,7 @@ namespace Password2Go.Modules.PrivateCardList
             {
                 if (o.IsSSHTerminalEnabled == true)
                 {
-                    _imgElement.ShouldHandleMouseInput = true;
+                    //_imgElement.ShouldHandleMouseInput = true;
                     _terminalSSHButton.Visibility = Telerik.WinControls.ElementVisibility.Visible;
                     //winSCPButton.Visibility = Telerik.WinControls.ElementVisibility.Visible;
                 }
@@ -144,7 +150,7 @@ namespace Password2Go.Modules.PrivateCardList
             }
             else
             {
-                _imgElement.ShouldHandleMouseInput = false;
+                //_imgElement.ShouldHandleMouseInput = false;
                 _terminalSSHButton.Visibility = Telerik.WinControls.ElementVisibility.Hidden;
                 //winSCPButton.Visibility = Telerik.WinControls.ElementVisibility.Hidden;
             }

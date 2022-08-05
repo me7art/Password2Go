@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Telerik.WinControls.UI;
 
 using Telerik.WinControls.Layouts;
+using Telerik.WinControls.Data;
 
 namespace Password2Go.Modules.PrivateCardList
 {
@@ -21,6 +22,8 @@ namespace Password2Go.Modules.PrivateCardList
         Action<PrivateCardListViewModel> _selectAction;
         Action<PrivateCardListViewModel> _runPuttyAction;
 
+        Dictionary<string, string> _categoriesLookup;
+
         public PrivateCardListViewModel CurrentItem => radListView1.CurrentItem?.DataBoundItem as PrivateCardListViewModel;
 
         public PrivateCardListUI()
@@ -30,18 +33,87 @@ namespace Password2Go.Modules.PrivateCardList
             radListView1.VisualItemCreating += RadListView1_VisualItemCreating;
         }
 
+        public void SetFilter(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                radListView1.FilterDescriptors.Clear();
+                radListView1.EnableFiltering = false;
+
+                radListView1.Groups.Clear();
+                UpdateGroups();
+
+                return;
+            }
+
+            radListView1.EnableFiltering = true;
+            var typeFilter = new FilterDescriptor("CardName", FilterOperator.Contains, text);
+            radListView1.FilterDescriptors.Clear();
+            radListView1.FilterDescriptors.Add(typeFilter);
+            //radListView1.ListViewElement.DataView.Refresh();
+
+            radListView1.Groups.Clear();
+            UpdateGroups();
+        }
+
         private void RadListView1_VisualItemCreating(object sender, ListViewVisualItemCreatingEventArgs e)
         {
-            //throw new NotImplementedException();
+            if (e.DataItem is Telerik.WinControls.UI.ListViewDataItemGroup)
+            {
+                return;
+            }
+
             e.VisualItem = new PrivateCardListVisualItem(_runPuttyAction);
         }
 
-        public void Bind(BindingList<PrivateCardListViewModel> bindingList)
+        public void Bind(BindingList<PrivateCardListViewModel> bindingList, Dictionary<string, string> categoriesLookup, bool enableGroups)
         {
+            _categoriesLookup = categoriesLookup;
+
             _bindingList = bindingList;
             radListView1.DataSource = bindingList;
             radListView1.DisplayMember = nameof(PrivateCardListViewModel.CardName); // "Name";
             radListView1.ValueMember = nameof(PrivateCardListViewModel.ID);         // "ID";
+
+            // Grouping
+            if (enableGroups == true)
+            {
+                radListView1.EnableCustomGrouping = true;
+                radListView1.ShowGroups = true;
+                radListView1.Groups.Clear();
+
+                UpdateGroups();
+            } else
+            {
+                radListView1.ShowGroups = false;
+            }
+            // //
+        }
+
+        private void UpdateGroups()
+        {
+            Dictionary<string, ListViewDataItemGroup> groups = new Dictionary<string, ListViewDataItemGroup>();
+            foreach (var item in radListView1.Items)
+            {
+                var o = item.DataBoundItem as PrivateCardListViewModel;
+                if (o == null)
+                {
+                    continue;
+                }
+
+                if (groups.ContainsKey(o.CategoryID) == false)
+                {
+                    var groupName = _categoriesLookup.TryGetValue(o.CategoryID, out string categoryName) ? categoryName : o.CategoryID;
+                    groups.Add(o.CategoryID, new ListViewDataItemGroup(groupName));
+                }
+
+                item.Group = groups[o.CategoryID];
+            }
+
+            foreach (var group in groups)
+            {
+                radListView1.Groups.Add(group.Value);
+            }
         }
 
         public void Init(
@@ -56,7 +128,6 @@ namespace Password2Go.Modules.PrivateCardList
 
         private void radListView1_ItemDataBound(object sender, Telerik.WinControls.UI.ListViewItemEventArgs e)
         {
-
             //if (radListView1.ViewType == Telerik.WinControls.UI.ListViewType.ListView)
             //{
             //    e.Item.Image = ((PrivateCardListViewModel)e.Item.DataBoundItem).CardImage;
@@ -65,7 +136,6 @@ namespace Password2Go.Modules.PrivateCardList
             //    //e.Item.TextAlignment = ContentAlignment.MiddleCenter;
 
             //}
-
         }
 
         private void radListView1_ItemMouseDoubleClick(object sender, Telerik.WinControls.UI.ListViewItemEventArgs e)

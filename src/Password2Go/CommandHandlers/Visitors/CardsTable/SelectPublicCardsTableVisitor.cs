@@ -24,13 +24,19 @@ namespace Password2Go.CommandHandlers.Visitors.CardsTable
     public class SelectPublicCardsTableVisitor : ICardsTableVisitor
     {
         bool _deleted;
-        BindingList<PrivateCardListViewModel> _result;
-        public BindingList<PrivateCardListViewModel> Result => _result;
+        //BindingList<PrivateCardListViewModel> _result;
+        List<PrivateCardListViewModel> _result;
 
-        public SelectPublicCardsTableVisitor(BindingList<PrivateCardListViewModel> result, bool deleted)
+        //public BindingList<PrivateCardListViewModel> Result => _result;
+        public List<PrivateCardListViewModel> Result => _result;
+
+
+        //public SelectPublicCardsTableVisitor(BindingList<PrivateCardListViewModel> result, bool deleted)
+        public SelectPublicCardsTableVisitor(List<PrivateCardListViewModel> result, bool deleted)
         {
             _deleted = deleted;
             _result = result;
+            //_currentCategory = currentCategory;
         }
 
         public void Visit(ICardsTable<SiteCardDataType> siteCardsTable)
@@ -47,6 +53,8 @@ namespace Password2Go.CommandHandlers.Visitors.CardsTable
 
         public void Visit(ICardsTable<DeviceCardDataType> deviceCardsTable)
         {
+            //var categoryNameLookup = _currentCategory.ConvertToDictionary();
+
             var devicesList = deviceCardsTable.SelectPublic(deleted: _deleted).ToList();
             devicesList.ForEach(x => _result.Add(x.MapToListItem()));
         }

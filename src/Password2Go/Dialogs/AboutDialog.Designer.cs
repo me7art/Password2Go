@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutDialog));
             this.office2013DarkTheme1 = new Telerik.WinControls.Themes.Office2013DarkTheme();
-            this.radLabel6 = new Telerik.WinControls.UI.RadLabel();
+            this.labelVersion = new Telerik.WinControls.UI.RadLabel();
             this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.radLabel3 = new Telerik.WinControls.UI.RadLabel();
@@ -39,10 +39,10 @@
             this.radLabel7 = new Telerik.WinControls.UI.RadLabel();
             this.rbClose = new Telerik.WinControls.UI.RadButton();
             this.radLabel5 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel8 = new Telerik.WinControls.UI.RadLabel();
+            this.labelCopyright = new Telerik.WinControls.UI.RadLabel();
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.radLabel9 = new Telerik.WinControls.UI.RadLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.labelVersion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).BeginInit();
@@ -51,21 +51,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rbClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.labelCopyright)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
-            // radLabel6
+            // labelVersion
             // 
-            this.radLabel6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.radLabel6.Location = new System.Drawing.Point(202, 69);
-            this.radLabel6.Name = "radLabel6";
-            this.radLabel6.Size = new System.Drawing.Size(117, 19);
-            this.radLabel6.TabIndex = 14;
-            this.radLabel6.Text = "1.0.2 of 14.03.2018";
-            this.radLabel6.ThemeName = "Office2013Dark";
+            this.labelVersion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.labelVersion.Location = new System.Drawing.Point(202, 69);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(117, 19);
+            this.labelVersion.TabIndex = 14;
+            this.labelVersion.Text = "1.0.2 of 14.03.2018";
+            this.labelVersion.ThemeName = "Office2013Dark";
             // 
             // radLabel2
             // 
@@ -147,17 +147,17 @@
             this.radLabel5.Text = "<html><a href=\"mailto:me7art@gmail.com\">me7art@gmail.com</a></html>";
             this.radLabel5.ThemeName = "Office2013Dark";
             // 
-            // radLabel8
+            // labelCopyright
             // 
-            this.radLabel8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.radLabel8.AutoSize = false;
-            this.radLabel8.Location = new System.Drawing.Point(12, 178);
-            this.radLabel8.Name = "radLabel8";
-            this.radLabel8.Size = new System.Drawing.Size(251, 19);
-            this.radLabel8.TabIndex = 25;
-            this.radLabel8.Text = "<html><strong><span style=\"font-size: 8pt; color: #808080\">Copyright (c) 2018 Mak" +
+            this.labelCopyright.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelCopyright.AutoSize = false;
+            this.labelCopyright.Location = new System.Drawing.Point(12, 178);
+            this.labelCopyright.Name = "labelCopyright";
+            this.labelCopyright.Size = new System.Drawing.Size(251, 19);
+            this.labelCopyright.TabIndex = 25;
+            this.labelCopyright.Text = "<html><strong><span style=\"font-size: 8pt; color: #808080\">Copyright (c) 2018 Mak" +
     "sim Serykh</span></strong></html>";
-            this.radLabel8.ThemeName = "Office2013Dark";
+            this.labelCopyright.ThemeName = "Office2013Dark";
             // 
             // radLabel1
             // 
@@ -188,14 +188,14 @@
             this.ClientSize = new System.Drawing.Size(460, 210);
             this.Controls.Add(this.radLabel9);
             this.Controls.Add(this.radLabel1);
-            this.Controls.Add(this.radLabel8);
+            this.Controls.Add(this.labelCopyright);
             this.Controls.Add(this.rbClose);
             this.Controls.Add(this.radLabel7);
             this.Controls.Add(this.radLabel5);
             this.Controls.Add(this.radLabel4);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.radLabel2);
-            this.Controls.Add(this.radLabel6);
+            this.Controls.Add(this.labelVersion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -208,7 +208,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About";
             this.ThemeName = "Office2013Dark";
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.labelVersion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).EndInit();
@@ -218,7 +218,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rbClose)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.labelCopyright)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
@@ -230,7 +230,7 @@
         #endregion
 
         private Telerik.WinControls.Themes.Office2013DarkTheme office2013DarkTheme1;
-        private Telerik.WinControls.UI.RadLabel radLabel6;
+        private Telerik.WinControls.UI.RadLabel labelVersion;
         private Telerik.WinControls.UI.RadLabel radLabel2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private Telerik.WinControls.UI.RadLabel radLabel3;
@@ -239,7 +239,7 @@
         private Telerik.WinControls.UI.RadLabel radLabel7;
         private Telerik.WinControls.UI.RadButton rbClose;
         private Telerik.WinControls.UI.RadLabel radLabel5;
-        private Telerik.WinControls.UI.RadLabel radLabel8;
+        private Telerik.WinControls.UI.RadLabel labelCopyright;
         private Telerik.WinControls.UI.RadLabel radLabel1;
         private Telerik.WinControls.UI.RadLabel radLabel9;
     }

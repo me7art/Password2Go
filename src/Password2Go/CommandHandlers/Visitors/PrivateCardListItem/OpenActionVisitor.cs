@@ -48,12 +48,15 @@ namespace Password2Go.CommandHandlers.Visitors.PrivateCardListItem
         DatabaseCardDataMapper _databaseCardDataMapper;
         CreditCardDataMapper _creditcardDataMapper;
 
+        Func<string> _generatePasswordAction;
+
         public OpenActionVisitor(
             DIContainer internalDI,
             PassphraseHolderService passphraseHolderService,
             KeyHolderService keyHolderService,
             ICommonXML<Data.Configs.CategoryTreeConfig> categoryTreeXml,
-            TreeViewModel treeViewModel)
+            TreeViewModel treeViewModel,
+            Func<string> generatePasswordAction)
         {
             _internalDI = internalDI;
             _passphraseHolderService = passphraseHolderService;
@@ -66,6 +69,8 @@ namespace Password2Go.CommandHandlers.Visitors.PrivateCardListItem
             _deviceCardDataMapper = new DeviceCardDataMapper(_keyHolderService);
             _databaseCardDataMapper = new DatabaseCardDataMapper(_keyHolderService);
             _creditcardDataMapper = new CreditCardDataMapper(_keyHolderService);
+
+            _generatePasswordAction = generatePasswordAction;
         }
 
         public void Visit(CreditCardListViewModel creditcardListViewModel)
@@ -183,7 +188,7 @@ namespace Password2Go.CommandHandlers.Visitors.PrivateCardListItem
             var data          = table.SelectPublic(item.ID).FirstOrDefault();
             var publicVM      = mapDataToPublicVM(data);
             var treeNodeModel = _treeViewModel.Find(data.CategoryID);
-            var siteCardUI    = new TCardUI() { Dock = DockStyle.Fill };
+            var siteCardUI    = new TCardUI() { Dock = DockStyle.Fill, GeneratePasswordAction = _generatePasswordAction };
 
             using (var privateCardForm = new PrivateCardInputForm(siteCardUI, cardTitle, cardIcon, isReadOnly: true))
             {

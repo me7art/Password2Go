@@ -39,6 +39,9 @@
             this.cbddbMore = new Telerik.WinControls.UI.CommandBarDropDownButton();
             this.rmiAddDatabase = new Telerik.WinControls.UI.RadMenuItem();
             this.rmiAddCreditCard = new Telerik.WinControls.UI.RadMenuItem();
+            this.commandBarStripElement2 = new Telerik.WinControls.UI.CommandBarStripElement();
+            this.tbSearch = new Telerik.WinControls.UI.CommandBarTextBox();
+            this.btnFilterClear = new Telerik.WinControls.UI.CommandBarButton();
             this.office2013DarkTheme1 = new Telerik.WinControls.Themes.Office2013DarkTheme();
             this.panelPreview = new System.Windows.Forms.Panel();
             this.radMenuItem1 = new Telerik.WinControls.UI.RadMenuItem();
@@ -55,11 +58,11 @@
             this.rmiKeysOptions = new Telerik.WinControls.UI.RadMenuItem();
             this.radMenuSeparatorItem2 = new Telerik.WinControls.UI.RadMenuSeparatorItem();
             this.rmiCategoriesOptions = new Telerik.WinControls.UI.RadMenuItem();
-            this.privateCardListUI1 = new Password2Go.Modules.PrivateCardList.PrivateCardListUI();
-            this.categoryTreeUI1 = new Password2Go.Modules.CategoryTree.CategoryTreeUI();
             this.niPassword2Go = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiSelectPAssword = new System.Windows.Forms.ToolStripMenuItem();
+            this.privateCardListUI1 = new Password2Go.Modules.PrivateCardList.PrivateCardListUI();
+            this.categoryTreeUI1 = new Password2Go.Modules.CategoryTree.CategoryTreeUI();
             ((System.ComponentModel.ISupportInitialize)(this.radCommandBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -82,7 +85,8 @@
             // 
             this.commandBarRowElement1.MinSize = new System.Drawing.Size(25, 25);
             this.commandBarRowElement1.Strips.AddRange(new Telerik.WinControls.UI.CommandBarStripElement[] {
-            this.commandBarStripElement1});
+            this.commandBarStripElement1,
+            this.commandBarStripElement2});
             // 
             // commandBarStripElement1
             // 
@@ -154,6 +158,38 @@
             this.rmiAddCreditCard.Image = global::Password2Go.Properties.Resources.if_credit_card_49367_16x16;
             this.rmiAddCreditCard.Name = "rmiAddCreditCard";
             this.rmiAddCreditCard.Text = "Add Credit Card";
+            // 
+            // commandBarStripElement2
+            // 
+            this.commandBarStripElement2.Alignment = System.Drawing.ContentAlignment.TopLeft;
+            this.commandBarStripElement2.DisplayName = "commandBarStripElement2";
+            this.commandBarStripElement2.Items.AddRange(new Telerik.WinControls.UI.RadCommandBarBaseItem[] {
+            this.tbSearch,
+            this.btnFilterClear});
+            this.commandBarStripElement2.Name = "commandBarStripElement2";
+            // 
+            // 
+            // 
+            this.commandBarStripElement2.OverflowButton.Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            ((Telerik.WinControls.UI.RadCommandBarOverflowButton)(this.commandBarStripElement2.GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            // 
+            // tbSearch
+            // 
+            this.tbSearch.AutoSize = true;
+            this.tbSearch.DisplayName = "commandBarTextBox1";
+            this.tbSearch.MinSize = new System.Drawing.Size(140, 22);
+            this.tbSearch.Name = "tbSearch";
+            this.tbSearch.NullText = "Filter...";
+            this.tbSearch.Text = "";
+            this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
+            // 
+            // btnFilterClear
+            // 
+            this.btnFilterClear.DisplayName = "commandBarButton2";
+            this.btnFilterClear.Image = global::Password2Go.Properties.Resources.if_Delete_1493279;
+            this.btnFilterClear.Name = "btnFilterClear";
+            this.btnFilterClear.Text = "commandBarButton2";
+            this.btnFilterClear.Click += new System.EventHandler(this.btnFilterClear_Click);
             // 
             // panelPreview
             // 
@@ -272,6 +308,25 @@
             this.rmiCategoriesOptions.Text = "Categories";
             this.rmiCategoriesOptions.Click += new System.EventHandler(this.rmiCategoriesOptions_Click);
             // 
+            // niPassword2Go
+            // 
+            this.niPassword2Go.ContextMenuStrip = this.contextMenuStrip1;
+            this.niPassword2Go.Icon = ((System.Drawing.Icon)(resources.GetObject("niPassword2Go.Icon")));
+            this.niPassword2Go.Text = "Password.2Go";
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiSelectPAssword});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(159, 26);
+            // 
+            // tsmiSelectPAssword
+            // 
+            this.tsmiSelectPAssword.Name = "tsmiSelectPAssword";
+            this.tsmiSelectPAssword.Size = new System.Drawing.Size(158, 22);
+            this.tsmiSelectPAssword.Text = "Select Password";
+            // 
             // privateCardListUI1
             // 
             this.privateCardListUI1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -292,25 +347,6 @@
             this.categoryTreeUI1.Size = new System.Drawing.Size(190, 540);
             this.categoryTreeUI1.TabIndex = 9;
             this.categoryTreeUI1.ToggleMode = Telerik.WinControls.UI.ToggleMode.DoubleClick;
-            // 
-            // niPassword2Go
-            // 
-            this.niPassword2Go.ContextMenuStrip = this.contextMenuStrip1;
-            this.niPassword2Go.Icon = ((System.Drawing.Icon)(resources.GetObject("niPassword2Go.Icon")));
-            this.niPassword2Go.Text = "Password.2Go";
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiSelectPAssword});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(159, 26);
-            // 
-            // tsmiSelectPAssword
-            // 
-            this.tsmiSelectPAssword.Name = "tsmiSelectPAssword";
-            this.tsmiSelectPAssword.Size = new System.Drawing.Size(158, 22);
-            this.tsmiSelectPAssword.Text = "Select Password";
             // 
             // MainForm
             // 
@@ -371,5 +407,8 @@
         private System.Windows.Forms.NotifyIcon niPassword2Go;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem tsmiSelectPAssword;
+        private Telerik.WinControls.UI.CommandBarStripElement commandBarStripElement2;
+        private Telerik.WinControls.UI.CommandBarTextBox tbSearch;
+        private Telerik.WinControls.UI.CommandBarButton btnFilterClear;
     }
 }

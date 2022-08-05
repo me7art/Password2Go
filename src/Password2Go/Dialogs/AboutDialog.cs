@@ -14,9 +14,12 @@ namespace Password2Go.Dialogs
 {
     public partial class AboutDialog : RadForm
     {
-        public AboutDialog()
+        public AboutDialog(string version, string copyright)
         {
             InitializeComponent();
+
+            labelVersion.Text = version;
+            labelCopyright.Text = copyright;
         }
     }
 }

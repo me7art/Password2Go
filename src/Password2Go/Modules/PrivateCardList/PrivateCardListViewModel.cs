@@ -63,6 +63,9 @@ namespace Password2Go.Modules.PrivateCardList
 
         public bool IsSSHTerminalEnabled { get; set; }
 
+        public string CategoryID { get; set; }
+        public string CategoryName { get; set; }
+
         public void UpdateView(PrivateCardListViewModel newView)
         {
             CardName = newView.CardName;

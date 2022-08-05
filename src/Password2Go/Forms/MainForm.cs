@@ -17,6 +17,8 @@ using Password2Go.Modules;
 using Password2Go.Modules.CategoryTree;
 using Password2Go.Modules.PrivateCardList;
 
+using System.Threading;
+
 namespace Password2Go.Forms
 {
     public partial class MainForm : RadForm
@@ -29,6 +31,13 @@ namespace Password2Go.Forms
         Action _emptyRecycleBinAction;
         Action _categorisOptionsAction;
         ICommand _deleteItemCommand;
+
+        Action<string> _filterAction;
+
+        public void SetFilter(string text)
+        {
+            privateCardListUI1.SetFilter(text);
+        }
 
         public ICommand DeleteItemCommand
         {
@@ -81,6 +90,15 @@ namespace Password2Go.Forms
 
             rmiAddDatabase.Click   += RmiAddDatabase_Click;
             rmiAddCreditCard.Click += RmiAddCreditCard_Click;
+
+            radCommandBar1.SizeChanged += RadCommandBar1_SizeChanged;
+
+            commandBarStripElement2.DesiredLocation = new PointF(radCommandBar1.Width - commandBarStripElement2.Size.Width, commandBarStripElement2.Location.Y);
+        }
+
+        private void RadCommandBar1_SizeChanged(object sender, EventArgs e)
+        {
+            commandBarStripElement2.DesiredLocation = new PointF(radCommandBar1.Width - commandBarStripElement2.Size.Width, commandBarStripElement2.Location.Y);
         }
 
 
@@ -144,7 +162,8 @@ namespace Password2Go.Forms
             Action<PrivateCardListViewModel> selectAction,
             Action<PrivateCardListViewModel> runSSHAction,
             Action emptyRecycleBinAction,
-            Action categorisOptionsAction
+            Action categorisOptionsAction,
+            Action<string> filterAction
             )
         {
             _addSiteAction       = addSiteAction;
@@ -158,12 +177,15 @@ namespace Password2Go.Forms
 
             _emptyRecycleBinAction = emptyRecycleBinAction;
             _categorisOptionsAction = categorisOptionsAction;
+            _filterAction = filterAction;
         }
 
-        public void Bind(BindingList<PrivateCardListViewModel> bindingList)
+        public void Bind(BindingList<PrivateCardListViewModel> bindingList, Dictionary<string, string> categoryLookup, bool enableGroups)
         {
-            privateCardListUI1.Bind(bindingList);
+            privateCardListUI1.Bind(bindingList, categoryLookup, enableGroups);
         }
+
+
 
         private void listUI1_Load(object sender, EventArgs e)
         {
@@ -249,7 +271,11 @@ namespace Password2Go.Forms
 
         private void rmiAbout_Click(object sender, EventArgs e)
         {
-            using (var aboutDialog = new Dialogs.AboutDialog())
+            using (var aboutDialog = 
+                new Dialogs.AboutDialog(
+                    version: $"{Program.PROGRAMM_VERSION} of {Program.PROGRAMM_DATE}", 
+                    copyright: $"<html><strong><span style=\"font-size: 8pt; color: #808080\">Copyright (c) 2018-{DateTime.Now.Year} Maksim Serykh</span></strong></html>"
+                    ))
             {
                 aboutDialog.ShowDialog();
             }
@@ -303,9 +329,49 @@ namespace Password2Go.Forms
         {
 
         }
+
+
+        object _searchLockObject = new object();
+        int _searchCount = 0;
+        private void tbSearch_TextChanged(object sender, EventArgs e)
+        {
+            Task.Factory.StartNew(() => 
+            {
+                lock (_searchLockObject)
+                {
+                    _searchCount++;
+                }
+
+                if (string.IsNullOrWhiteSpace(tbSearch.Text) == false)
+                {
+                    Thread.Sleep(650); // search delay
+                }
+
+                lock (_searchLockObject)
+                {
+                    _searchCount--;
+
+                    if (_searchCount == 0)
+                    {
+                        if (this.InvokeRequired)
+                        {
+                            this.BeginInvoke(_filterAction, tbSearch.Text);
+                        }
+                        else
+                        {
+                            this.Invoke(_filterAction, tbSearch.Text);
+                        }
+                    }
+                }
+            });
+        }
+
+
+        private void btnFilterClear_Click(object sender, EventArgs e)
+        {
+            tbSearch.Text = string.Empty;
+        }
     }
-
-
 
 
 }

@@ -117,7 +117,8 @@ namespace Password2Go.Controllers
                 _commandHandler.SelectCardAction,
                 _commandHandler.RunSSHAction,
                 _commandHandler.EmpteRecycleBinAction,
-                _commandHandler.CategoriesOptionsAction
+                _commandHandler.CategoriesOptionsAction,
+                filterAction: _commandHandler.FilterAction
                 );
 
             RuntimeType runtime;

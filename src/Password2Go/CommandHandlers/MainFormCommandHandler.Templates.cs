@@ -95,6 +95,9 @@ namespace Password2Go.CommandHandlers
                 {
                     var newListItem = mapToListItem(item); //item.MapToListItem();
                     _blist.Add(newListItem);
+
+                    // TODO: _blist.Add doesn't run "group" update. so we need to run it manually
+                    _mainForm.AddItemToExistingGroup(newListItem);
                 }
             }
         }

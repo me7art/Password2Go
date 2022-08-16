@@ -96,6 +96,11 @@ namespace Password2Go.Forms
             commandBarStripElement2.DesiredLocation = new PointF(radCommandBar1.Width - commandBarStripElement2.Size.Width, commandBarStripElement2.Location.Y);
         }
 
+        public void AddItemToExistingGroup(PrivateCardListViewModel item)
+        {
+            privateCardListUI1.AddItemToExistingGroup(item);
+        }
+
         private void RadCommandBar1_SizeChanged(object sender, EventArgs e)
         {
             commandBarStripElement2.DesiredLocation = new PointF(radCommandBar1.Width - commandBarStripElement2.Size.Width, commandBarStripElement2.Location.Y);

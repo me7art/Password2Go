@@ -21,8 +21,8 @@ namespace Password2Go
     {
         public const string KEYS_CONFIG_FILE_NAME = "keys-config.xml";
 
-        public const string PROGRAMM_VERSION = "2.0.0";
-        public const string PROGRAMM_DATE = "01.08.2022";
+        public const string PROGRAMM_VERSION = "2.0.1";
+        public const string PROGRAMM_DATE = "16.08.2022";
 
         const string LOCAL_DIRECTORY_CONFIG_FILENAME = "local-directory.xml";
         const string CATEGORY_CONFIG_FILENAME = "category-config.xml";

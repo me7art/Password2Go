@@ -90,9 +90,21 @@ namespace Password2Go.Modules.PrivateCardList
             // //
         }
 
+
+        Dictionary<string, ListViewDataItemGroup> _groups = null;
         private void UpdateGroups()
         {
-            Dictionary<string, ListViewDataItemGroup> groups = new Dictionary<string, ListViewDataItemGroup>();
+            if (_groups != null)
+            {
+                foreach (var itm in _groups)
+                {
+                    itm.Value.Dispose();
+                }
+                _groups.Clear();
+            }
+
+            _groups = new Dictionary<string, ListViewDataItemGroup>();
+
             foreach (var item in radListView1.Items)
             {
                 var o = item.DataBoundItem as PrivateCardListViewModel;
@@ -101,19 +113,48 @@ namespace Password2Go.Modules.PrivateCardList
                     continue;
                 }
 
-                if (groups.ContainsKey(o.CategoryID) == false)
+                if (_groups.ContainsKey(o.CategoryID) == false)
                 {
                     var groupName = _categoriesLookup.TryGetValue(o.CategoryID, out string categoryName) ? categoryName : o.CategoryID;
-                    groups.Add(o.CategoryID, new ListViewDataItemGroup(groupName));
+                    _groups.Add(o.CategoryID, new ListViewDataItemGroup(groupName));
                 }
 
-                item.Group = groups[o.CategoryID];
+                item.Group = _groups[o.CategoryID];
             }
 
-            foreach (var group in groups)
+            foreach (var group in _groups)
             {
                 radListView1.Groups.Add(group.Value);
             }
+        }
+
+        public void AddItemToExistingGroup(PrivateCardListViewModel o)
+        {
+            if (_groups == null)
+            {
+                return;
+            }
+
+            var item = radListView1.Items.FirstOrDefault(x => (x.DataBoundItem as PrivateCardListViewModel)?.ID == o.ID);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            // The group should exist alteady
+            //if (_groups.ContainsKey(o.CategoryID) == false)
+            //{
+            //    var groupName = _categoriesLookup.TryGetValue(o.CategoryID, out string categoryName) ? categoryName : o.CategoryID;
+            //    _groups.Add(o.CategoryID, new ListViewDataItemGroup(groupName));
+            //}
+
+            if (_groups.ContainsKey(o.CategoryID) == false)
+            {
+                return;
+            }
+
+            item.Group = _groups[o.CategoryID];
         }
 
         public void Init(

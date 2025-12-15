@@ -19,6 +19,8 @@ using Password2Go.Services.Decrypt;
 using Common.Repository.PrivateCards;
 using Password2Go.Data;
 
+using Common.Helpers;
+
 namespace Password2Go.CommandHandlers
 {
     public partial class MainFormCommandHandler
@@ -86,7 +88,19 @@ namespace Password2Go.CommandHandlers
             var data = _cardsTableChain.DeviceCardsTable.Select(item.ID);
             var secretData = DecryptService.DecryptData<DeviceEncryptedData, DeviceSecretData>(data, _keyHolderService, _passphraseHolderService);
 
-            System.Diagnostics.Process.Start("putty.exe", $"-pw {secretData.Password} {data.Login}@{data.Address}");
+            var pipeName = Guid.NewGuid().ToString();
+
+            NamedPipeHelper sshPipeHelper = new NamedPipeHelper(pipeName, secretData.Password);
+            sshPipeHelper.StartInBackground();
+            if (sshPipeHelper.WaitForPipeCreation())
+            {
+                var pwParam = $@"\\.\pipe\{pipeName}";
+                System.Diagnostics.Process.Start("putty.exe", $"-pwfile \"{pwParam}\" {data.Login}@{data.Address}");
+            } else
+            {
+                //TODO: error message
+            }
+
         }
 
         public void SelectCardAction(PrivateCardListViewModel item)

@@ -24,6 +24,7 @@ namespace Password2Go.Services.Mappers.CardDataMapper.CreditCard
                 CardImage = Password2Go.Properties.Resources.if_credit_card_49367_32x32, // .if_database_35948_32x32, // .if_gnome_fs_server_21123,
                 Title = data.Title,
                 IsSSHTerminalEnabled = false,
+                IsRDPEnabled = false,
                 CategoryID = data.CategoryID
             };
         }

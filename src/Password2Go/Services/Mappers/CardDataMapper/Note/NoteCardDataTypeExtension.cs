@@ -24,6 +24,7 @@ namespace Password2Go.Services.Mappers.CardDataMapper.Note
                 CardImage = Password2Go.Properties.Resources.if_page_white_text_36305_32x32, // if_white_note_49638,
                 Title = data.Title,
                 IsSSHTerminalEnabled = false,
+                IsRDPEnabled = false,
                 CategoryID = data.CategoryID
             };
         }

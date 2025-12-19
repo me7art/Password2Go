@@ -62,6 +62,7 @@ namespace Password2Go.Modules.PrivateCardList
         public string Title { get; set; }
 
         public bool IsSSHTerminalEnabled { get; set; }
+        public bool IsRDPEnabled { get; set; }
 
         public string CategoryID { get; set; }
 
@@ -72,6 +73,7 @@ namespace Password2Go.Modules.PrivateCardList
             CardName = newView.CardName;
             CardImage = newView.CardImage;
             IsSSHTerminalEnabled = newView.IsSSHTerminalEnabled;
+            IsRDPEnabled = newView.IsRDPEnabled;
             OnPropertyChanged(nameof(CardName));
             OnPropertyChanged(nameof(CardImage));
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace Common.Repository
     {
         T Read();
         void Write(T dataObject);
+        bool IsEmpty();
     }
 
     public class CommonXMLAdapter<T> : ICommonXML<T>
@@ -33,6 +35,11 @@ namespace Common.Repository
         public void Write(T xml)
         {
             SerializationFile.SerializeObject(xml, _fileName);
+        }
+
+        public bool IsEmpty()
+        {
+            return File.Exists(_fileName) == false;
         }
     }
 }

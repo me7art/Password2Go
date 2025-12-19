@@ -24,6 +24,7 @@ namespace Password2Go.Services.Mappers.CardDataMapper.DataBase
                 CardImage = Password2Go.Properties.Resources.if_database_35948_32x32, // .if_gnome_fs_server_21123,
                 Title = data.Title,
                 IsSSHTerminalEnabled = false,
+                IsRDPEnabled = false,
                 CategoryID = data.CategoryID
             };
         }

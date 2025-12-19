@@ -21,8 +21,8 @@ namespace Password2Go
     {
         public const string KEYS_CONFIG_FILE_NAME = "keys-config.xml";
 
-        public const string PROGRAMM_VERSION = "2.0.1";
-        public const string PROGRAMM_DATE = "16.08.2022";
+        public const string PROGRAMM_VERSION = "2.1.0";
+        public const string PROGRAMM_DATE = "18.12.2025";
 
         const string LOCAL_DIRECTORY_CONFIG_FILENAME = "local-directory.xml";
         const string CATEGORY_CONFIG_FILENAME = "category-config.xml";
@@ -84,9 +84,9 @@ namespace Password2Go
             IHelperLogger logger = new HelperLogger("main", Path.Combine(localDirectory.LogDirectory, LOG_FILENAME));
             logger.Log("Program starting...", eLOG.E_LOGMESSAGE);
 
-            ICommonXML<Data.Configs.CategoryTreeConfig> categoryXmlAdapter = 
-                new CommonXMLAdapter<Data.Configs.CategoryTreeConfig>(Path.Combine(localDirectory.ConfigDirectory, CATEGORY_CONFIG_FILENAME));
-            DI.Register(categoryXmlAdapter);
+            //ICommonXML<Data.Configs.CategoryTreeConfig> categoryXmlAdapter =
+            //    new CommonXMLAdapter<Data.Configs.CategoryTreeConfig>(Path.Combine(localDirectory.ConfigDirectory, CATEGORY_CONFIG_FILENAME));
+            //DI.Register(categoryXmlAdapter);
 
             ICommonXML<LocalDirectory> localDirectoryXmlAdapter =
                 new CommonXMLAdapter<LocalDirectory>(Path.Combine(localDirectory.ConfigDirectory, LOCAL_DIRECTORY_CONFIG_FILENAME));
@@ -110,12 +110,9 @@ namespace Password2Go
 
                 localDirectory.DataDirectory = beforeWeStartController.DatabaseDirectory;
                 keysConfig.Keys.Add(beforeWeStartController.KeysPath);
-                var categoryTreeConfig = Modules.CategoryTree.TreeViewModel.CreateMockTree().Map();
 
-                //SaveConfig(Path.Combine(localDirectory.ConfigDirectory, LocalDirectoryConfigFileName), localDirectory);
                 localDirectoryXmlAdapter.Write(localDirectory);
                 SaveConfig(Path.Combine(localDirectory.ConfigDirectory, KEYS_CONFIG_FILE_NAME), keysConfig);
-                categoryXmlAdapter.Write(categoryTreeConfig);
 
                 logger.Log("INITIALIZATION COMPLETE!", eLOG.E_LOGMESSAGE);
                 RadMessageBox.Show("Initialization complete!", "Message", MessageBoxButtons.OK, RadMessageIcon.Info);
@@ -129,6 +126,17 @@ namespace Password2Go
                 localDirectory.KeysDirectory = savedLocalDirectory.KeysDirectory;
                 keysConfig                   = LoadConfig<Data.Configs.KeysConfig>(Path.Combine(localDirectory.ConfigDirectory, KEYS_CONFIG_FILE_NAME));
                 logger.Log("Configs loaded!", eLOG.E_LOGMESSAGE);
+            }
+
+            ICommonXML<Data.Configs.CategoryTreeConfig> categoryXmlAdapter =
+                new CommonXMLAdapter<Data.Configs.CategoryTreeConfig>(Path.Combine(localDirectory.DataDirectory, CATEGORY_CONFIG_FILENAME));
+            DI.Register(categoryXmlAdapter);
+
+            if (categoryXmlAdapter.IsEmpty())
+            {
+                var categoryTreeConfig = Modules.CategoryTree.TreeViewModel.CreateMockTree().Map();
+                categoryXmlAdapter.Write(categoryTreeConfig);
+                logger.Log("new category tree created", eLOG.E_LOGMESSAGE);
             }
 
             _keyHolderService = new KeyHolderService().Init(keysConfig);

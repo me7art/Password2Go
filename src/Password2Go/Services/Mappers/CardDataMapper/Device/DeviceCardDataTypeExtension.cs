@@ -31,6 +31,10 @@ namespace Password2Go.Services.Mappers.CardDataMapper.Device
                 CategoryID = data.CategoryID
             };
 
+
+            //TODO: Нужно ввести новое свойство к хосту - показать иконку удаленного подключения, и тип удаленного подключения: ssh, rdp, etc
+            //TODO: И показывать или нет иконку подключения надо основываясь не на чиселку порта, а на свойство
+            //TODO: а так же ввести несколько логинов для хоста, что бы можно было подключаться к хосту с разными логинами
             if (data.Port == "22")
             {
                 deviceVM.IsSSHTerminalEnabled = true;
@@ -39,10 +43,13 @@ namespace Password2Go.Services.Mappers.CardDataMapper.Device
                 deviceVM.IsSSHTerminalEnabled = false;
             }
 
-            // TODO
-            //if (UserConfigProvider.CheckIsSSHEnabled(data.ID))
-            //{
-            //}
+            if (data.Port == "3128")
+            {
+                deviceVM.IsRDPEnabled = true;
+            } else
+            {
+                deviceVM.IsRDPEnabled= false;
+            }
 
             return deviceVM;
         }

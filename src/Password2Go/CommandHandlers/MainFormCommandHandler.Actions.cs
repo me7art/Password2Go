@@ -20,6 +20,7 @@ using Common.Repository.PrivateCards;
 using Password2Go.Data;
 
 using Common.Helpers;
+using System.Diagnostics;
 
 namespace Password2Go.CommandHandlers
 {
@@ -78,29 +79,71 @@ namespace Password2Go.CommandHandlers
             }
         }
 
-        public void RunSSHAction(PrivateCardListViewModel item)
+        // TODO: переименовать во что нить типа RunRemoteClientAction
+        public void RunSSHAction(PrivateCardListViewModel item1)
         {
-            if (item == null)
+            if (item1 == null)
             {
                 return;
             }
 
-            var data = _cardsTableChain.DeviceCardsTable.Select(item.ID);
-            var secretData = DecryptService.DecryptData<DeviceEncryptedData, DeviceSecretData>(data, _keyHolderService, _passphraseHolderService);
-
-            var pipeName = Guid.NewGuid().ToString();
-
-            NamedPipeHelper sshPipeHelper = new NamedPipeHelper(pipeName, secretData.Password);
-            sshPipeHelper.StartInBackground();
-            if (sshPipeHelper.WaitForPipeCreation())
+            if (item1.IsSSHTerminalEnabled)
             {
-                var pwParam = $@"\\.\pipe\{pipeName}";
-                System.Diagnostics.Process.Start("putty.exe", $"-pwfile \"{pwParam}\" {data.Login}@{data.Address}");
-            } else
-            {
-                //TODO: error message
+                RunPutty(item1);
             }
 
+            if (item1.IsRDPEnabled)
+            {
+                RunRDT(item1);
+            }
+
+            void RunPutty(PrivateCardListViewModel item)
+            {
+                var data = _cardsTableChain.DeviceCardsTable.Select(item.ID);
+                var secretData = DecryptService.DecryptData<DeviceEncryptedData, DeviceSecretData>(data, _keyHolderService, _passphraseHolderService);
+
+                var pipeName = Guid.NewGuid().ToString();
+
+                NamedPipeHelper sshPipeHelper = new NamedPipeHelper(pipeName, secretData.Password);
+                sshPipeHelper.StartInBackground();
+                if (sshPipeHelper.WaitForPipeCreation())
+                {
+                    var pwParam = $@"\\.\pipe\{pipeName}";
+                    System.Diagnostics.Process.Start("putty.exe", $"-pwfile \"{pwParam}\" {data.Login}@{data.Address}");
+                }
+                else
+                {
+                    //TODO: error message
+                }
+            }
+
+            void RunRDT(PrivateCardListViewModel item)
+            {
+                var data = _cardsTableChain.DeviceCardsTable.Select(item.ID);
+                var secretData = DecryptService.DecryptData<DeviceEncryptedData, DeviceSecretData>(data, _keyHolderService, _passphraseHolderService);
+
+                var p1 = System.Diagnostics.Process.Start("cmdkey", $"/generic:\"TERMSRV/{data.Address}\" /user:\"{data.Login}\" /pass:\"{secretData.Password}\"");
+                p1.WaitForExit();
+
+                Process p2 = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "mstsc",
+                        Arguments = $"/v:\"{data.Address}\"",
+                        UseShellExecute = false
+                    },
+                    EnableRaisingEvents = true,
+                };
+
+                p2.Exited += (sender, e) =>
+                {
+                    var p3 = System.Diagnostics.Process.Start("cmdkey", $"/delete:\"TERMSRV/{data.Address}\"");
+                    p3.WaitForExit();
+                };
+
+                p2.Start();
+            }
         }
 
         public void SelectCardAction(PrivateCardListViewModel item)
@@ -204,7 +247,7 @@ namespace Password2Go.CommandHandlers
             }
 
             //            _mainForm.ModelCategory.Nodes
-            if (_currentCategory.IsVirtual == true && _currentCategory.NodeID == Password2Go.Data.Configs.CategoryTreeConfig.ID_ALL);
+            if (_currentCategory.IsVirtual == true && _currentCategory.NodeID == Password2Go.Data.Configs.CategoryTreeConfig.ID_ALL)
             {
                 categoriesLookup = _mainForm.ModelCategory.ToDictionary();
             }

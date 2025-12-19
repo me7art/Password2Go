@@ -49,8 +49,24 @@ namespace Password2Go.Modules.PrivateCardList
         //    Size = new Size(16, 16),
         //    DisplayStyle = Telerik.WinControls.DisplayStyle.Image,
         //    ShowBorder = false,
-        //    ToolTipText = "WinSCP"
+        //    ToolTipText = "WinSCP",
+        //    Visibility = Telerik.WinControls.ElementVisibility.Hidden
         //};
+
+        RadButtonElement _terminalRDPButton = new RadButtonElement()
+        {
+            StretchHorizontally = false,
+            StretchVertically = false,
+            Alignment = ContentAlignment.BottomRight,
+            Padding = new Padding(left: 0, top: 0, right: 0, bottom: 0),
+            Margin = new Padding(left: 0, top: 0, right: 1, bottom: 0),
+            Image = Password2Go.Properties.Resources._64475_monitor_window_icon,
+            Size = new Size(16, 16),
+            DisplayStyle = Telerik.WinControls.DisplayStyle.Image,
+            ShowBorder = false,
+            ToolTipText = "RDP Client",
+            Visibility = Telerik.WinControls.ElementVisibility.Hidden
+        };
 
 
 
@@ -74,6 +90,7 @@ namespace Password2Go.Modules.PrivateCardList
             base.CreateChildElements();
 
             _terminalSSHButton.Click += TerminalButton_Click;
+            _terminalRDPButton.Click += TerminalButton_Click;
 
             //layout.StretchHorizontally = layout.StretchVertically = false;
             _layout.Rows.Clear();
@@ -94,11 +111,13 @@ namespace Password2Go.Modules.PrivateCardList
             _layout.Children.Add(_imgElement);
 
 
+            //_titleElement.
             _titleElement.SetValue(GridLayout.RowIndexProperty, 0);
             _titleElement.SetValue(GridLayout.ColumnIndexProperty, 1);
             _titleElement.SetValue(GridLayout.RowSpanProperty, 3);
 
-            //titleElement.Children.Add(winSCPButton);
+            //_titleElement.Children.Add(winSCPButton);
+            _titleElement.Children.Add(_terminalRDPButton);
             _titleElement.Children.Add(_terminalSSHButton);
             _layout.Children.Add(_titleElement);
 
@@ -146,12 +165,17 @@ namespace Password2Go.Modules.PrivateCardList
                     _terminalSSHButton.Visibility = Telerik.WinControls.ElementVisibility.Visible;
                     //winSCPButton.Visibility = Telerik.WinControls.ElementVisibility.Visible;
                 }
+                if (o.IsRDPEnabled == true)
+                {
+                    _terminalRDPButton.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+                }
 
             }
             else
             {
                 //_imgElement.ShouldHandleMouseInput = false;
                 _terminalSSHButton.Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+                _terminalRDPButton.Visibility = Telerik.WinControls.ElementVisibility.Hidden;
                 //winSCPButton.Visibility = Telerik.WinControls.ElementVisibility.Hidden;
             }
 
